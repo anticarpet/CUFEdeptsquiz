@@ -1,0 +1,17 @@
+{
+    "name": "cufe-department-quiz",
+    "version": "1.0.0",
+    "description": "simple quiz app for CUFE department",
+    "main": "src/index.html",
+    "scripts": {
+        "start": "live-server --port=3000 --no-browser --watch=src",
+        "dev": "live-server --port=3000 --watch=src"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "live-server": "^1.2.1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
