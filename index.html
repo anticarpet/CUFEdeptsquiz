@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Engineering Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a16;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 235, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 60%, rgba(255, 0, 200, 0.1) 0%, transparent 20%),
+                linear-gradient(to bottom, #0a0a16 0%, #141430 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-bottom: 1px solid #00f7ff;
+            box-shadow: 0 5px 15px rgba(0, 247, 255, 0.3);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #00f7ff;
+            text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff, 0 0 30px #00f7ff;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ff00c8;
+            text-shadow: 0 0 5px #ff00c8;
+            margin-bottom: 20px;
+        }
+
+        .quiz-container {
+            background: rgba(10, 15, 30, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.5);
+            border: 1px solid #00f7ff;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid #ff00c8;
+            border-radius: 20px;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            color: #00f7ff;
+            text-shadow: 0 0 5px #00f7ff;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .option {
+            background: rgba(20, 25, 45, 0.8);
+            border: 1px solid #5d17eb;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+
+        .option:hover {
+            background: rgba(93, 23, 235, 0.3);
+            border-color: #ff00c8;
+            box-shadow: 0 0 15px rgba(255, 0, 200, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .option.selected {
+            background: rgba(93, 23, 235, 0.5);
+            border-color: #00f7ff;
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.7);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #5d17eb, #ff00c8);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(255, 0, 200, 0.7);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(255, 0, 200, 0.9);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .progress {
+            height: 10px;
+            background: rgba(20, 25, 45, 0.8);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #5d17eb, #ff00c8);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .results-page {
+            display: none;
+            text-align: center;
+        }
+
+        .winner {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(10, 15, 30, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 247, 255, 0.7);
+            border: 2px solid #00f7ff;
+        }
+
+        .winner-img {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ff00c8;
+            box-shadow: 0 0 20px #ff00c8;
+        }
+
+        .winner-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .winner-name {
+            font-size: 2.5rem;
+            color: #00f7ff;
+            text-shadow: 0 0 10px #00f7ff;
+            margin-bottom: 10px;
+        }
+
+        .winner-desc {
+            font-size: 1.2rem;
+            color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .ranking {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .ranking-item {
+            background: rgba(20, 25, 45, 0.8);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            border-left: 5px solid #5d17eb;
+        }
+
+        .ranking-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff00c8;
+            text-shadow: 0 0 5px #ff00c8;
+            margin-right: 20px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .ranking-info {
+            flex-grow: 1;
+        }
+
+        .ranking-name {
+            font-size: 1.4rem;
+            color: #00f7ff;
+            margin-bottom: 5px;
+        }
+
+        .ranking-desc {
+            color: #cccccc;
+            font-size: 1rem;
+        }
+
+        .tie-breaker {
+            display: none;
+            text-align: center;
+        }
+
+        .tie-title {
+            color: #ff00c8;
+            text-shadow: 0 0 5px #ff00c8;
+            margin-bottom: 20px;
+        }
+
+        .cyberpunk-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 247, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 247, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #00f7ff; }
+            50% { text-shadow: 0 0 20px #00f7ff, 0 0 30px #00f7ff; }
+            100% { text-shadow: 0 0 5px #00f7ff; }
+        }
+
+        .glow-text {
+            animation: glow 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .question {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyberpunk-grid"></div>
+    <div class="container">
+        <header>
+            <h1>ENGINEERING <span class="glow-text">DEPARTMENT</span> QUIZ</h1>
+            <p class="subtitle">Discover which engineering field aligns with your skills and passions</p>
+        </header>
+
+        <div class="progress">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div class="quiz-container" id="quiz-container">
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <button class="btn" id="next-btn">Next Question</button>
+
+        <div class="tie-breaker" id="tie-breaker">
+            <h2 class="tie-title">TIE BREAKER QUESTION</h2>
+            <div class="question" id="tie-question"></div>
+            <div class="options" id="tie-options"></div>
+            <button class="btn" id="tie-submit">Submit</button>
+        </div>
+
+        <div class="results-page" id="results-page">
+            <div class="winner">
+                <div class="winner-img">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Winner Department">
+                </div>
+                <h2 class="winner-name" id="winner-name">Computer Engineering</h2>
+                <p class="winner-desc" id="winner-desc">For the logical problem-solver who wants to build the digital future through hardware and software.</p>
+            </div>
+
+            <div class="ranking">
+                <h2 style="color: #ff00c8; text-align: center; margin-bottom: 20px;">FULL RANKING</h2>
+                <div id="ranking-list">
+                    <!-- Ranking will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data
+        const quizData = {
+            directions: {
+                "earth": { name: "Earth & Elements", color: "#5d17eb" },
+                "structures": { name: "Structures & Design", color: "#00f7ff" },
+                "motion": { name: "Motion & Energy", color: "#ff00c8" },
+                "hardware": { name: "Hardware & Systems", color: "#ff8a00" },
+                "software": { name: "Software & Data", color: "#00ff95" }
+            },
+            departments: [
+                { 
+                    id: "chemical", 
+                    name: "Chemical Engineering", 
+                    direction: "earth",
+                    description: "Focuses on processes that convert raw materials into valuable products.",
+                    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "civil", 
+                    name: "Civil Engineering", 
+                    direction: "structures",
+                    description: "Designs and constructs infrastructure like bridges, roads, and buildings.",
+                    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "architecture", 
+                    name: "Architecture", 
+                    direction: "structures",
+                    description: "Blends creativity with technical knowledge to design functional and aesthetic structures.",
+                    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "computer", 
+                    name: "Computer Engineering", 
+                    direction: "software",
+                    description: "For the logical problem-solver who wants to build the digital future through hardware and software.",
+                    image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "electrical", 
+                    name: "Electrical Engineering", 
+                    direction: "hardware",
+                    description: "Works with electrical systems, from microchips to power grids.",
+                    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "mechanical-power", 
+                    name: "Mechanical Power", 
+                    direction: "motion",
+                    description: "Focuses on energy conversion, thermodynamics, and power generation systems.",
+                    image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "mechanical-production", 
+                    name: "Mechanical Production", 
+                    direction: "motion",
+                    description: "Focuses on manufacturing processes, machinery design, and production systems.",
+                    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "medical", 
+                    name: "Medical Engineering", 
+                    direction: "software",
+                    description: "Combines engineering principles with medical sciences to develop healthcare technologies.",
+                    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "communications", 
+                    name: "Communications Engineering", 
+                    direction: "hardware",
+                    description: "Works on communication systems, from fiber optics to wireless networks.",
+                    image: "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "aerospace", 
+                    name: "Aerospace Engineering", 
+                    direction: "motion",
+                    description: "Designs and develops aircraft, spacecraft, satellites, and missiles.",
+                    image: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "petroleum", 
+                    name: "Petroleum Engineering", 
+                    direction: "earth",
+                    description: "Focuses on extraction of oil and gas from underground reservoirs.",
+                    image: "https://images.unsplash.com/photo-1618477388957-7a23ff3e15a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "mining", 
+                    name: "Mining Engineering", 
+                    direction: "earth",
+                    description: "Focuses on the extraction of mineral resources from the earth.",
+                    image: "https://images.unsplash.com/photo-1541336032412-2048a678540d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                { 
+                    id: "metals", 
+                    name: "Metals Engineering", 
+                    direction: "earth",
+                    description: "Specializes in the properties, production, and applications of metals.",
+                    image: "https://images.unsplash.com/photo-1583513364301-f9339bc6122c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                }
+            ],
+            questions: [
+                {
+                    question: "What's the first image that comes to mind when you think about engineering?",
+                    type: "direction",
+                    options: [
+                        { text: "A chemical reaction in a beaker or an oil rig", direction: "earth" },
+                        { text: "A towering skyscraper or a beautiful bridge", direction: "structures" },
+                        { text: "A roaring jet engine or a spacecraft", direction: "motion" },
+                        { text: "A complex circuit board or a buzzing power grid", direction: "hardware" },
+                        { text: "Lines of code on a screen or a medical robot", direction: "software" }
+                    ]
+                },
+                {
+                    question: "How do you prefer to work?",
+                    type: "direction",
+                    options: [
+                        { text: "On a mobile site, outdoors", direction: "earth" },
+                        { text: "In an office with designs/plans", direction: "structures" },
+                        { text: "In a factory or workshop", direction: "motion" },
+                        { text: "In a lab with equipment", direction: "hardware" },
+                        { text: "At home on a laptop", direction: "software" }
+                    ]
+                },
+                {
+                    question: "If you didn't enter engineering, what would you study instead?",
+                    type: "department",
+                    options: [
+                        { text: "Sciences (Physics, Chemistry, Biology)", departments: ["chemical", "medical", "mechanical-power"] },
+                        { text: "Fine Arts / Architecture", departments: ["architecture"] },
+                        { text: "Computers and Information", departments: ["computer", "communications"] },
+                        { text: "Urban Planning", departments: ["civil", "architecture"] }
+                    ]
+                },
+                {
+                    question: "What's your favorite subject?",
+                    type: "department",
+                    options: [
+                        { text: "Physics", departments: ["aerospace", "communications", "mechanical-power"] },
+                        { text: "Mechanics", departments: ["mechanical-production", "aerospace", "civil"] },
+                        { text: "Chemistry", departments: ["chemical", "petroleum", "metals"] },
+                        { text: "Biology", departments: ["medical"] },
+                        { text: "Math", departments: ["electrical", "aerospace", "computer"] },
+                        { text: "Coding", departments: ["computer", "medical"] },
+                        { text: "Geometry", departments: ["architecture", "civil"] }
+                    ]
+                },
+                {
+                    question: "Which global problem are you most passionate about solving?",
+                    type: "department",
+                    options: [
+                        { text: "Sustainable Energy & Climate Change", departments: ["mechanical-power", "chemical", "electrical"] },
+                        { text: "Building the Cities of the Future", departments: ["civil", "computer", "communications"] },
+                        { text: "Optimizing Production & Manufacturing", departments: ["mechanical-production"] },
+                        { text: "Connecting the World", departments: ["communications"] },
+                        { text: "Advancing Human Health with Technology", departments: ["medical"] },
+                        { text: "Exploring Space and the Universe", departments: ["aerospace"] },
+                        { text: "Responsible Resource Extraction", departments: ["mining", "petroleum"] }
+                    ]
+                }
+            ],
+            tieBreakers: [
+                {
+                    question: "When you get a new gadget, what's the first thing you do?",
+                    options: [
+                        { text: "Read the manual to understand its systems", departments: ["electrical", "communications"] },
+                        { text: "Tinker with its hardware, maybe open it up", departments: ["electrical"] },
+                        { text: "Download the app and explore its software features", departments: ["computer"] },
+                        { text: "Think about how it could be used in healthcare", departments: ["medical"] }
+                    ]
+                }
+            ]
+        };
+
+        // Initialize variables
+        let currentQuestion = 0;
+        let userSelections = [];
+        let departmentScores = {};
+        let tieBreakerActive = false;
+
+        // Initialize department scores
+        quizData.departments.forEach(dept => {
+            departmentScores[dept.id] = 0;
+        });
+
+        // DOM elements
+        const quizContainer = document.getElementById('quiz-container');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const resultsPage = document.getElementById('results-page');
+        const tieBreaker = document.getElementById('tie-breaker');
+        const tieQuestion = document.getElementById('tie-question');
+        const tieOptions = document.getElementById('tie-options');
+        const tieSubmit = document.getElementById('tie-submit');
+        const winnerName = document.getElementById('winner-name');
+        const winnerDesc = document.getElementById('winner-desc');
+        const rankingList = document.getElementById('ranking-list');
+
+        // Initialize the quiz
+        function initQuiz() {
+            showQuestion();
+            updateProgressBar();
+        }
+
+        // Show current question
+        function showQuestion() {
+            const question = quizData.questions[currentQuestion];
+            let html = `
+                <div class="question">${question.question}</div>
+                <div class="options">
+            `;
+
+            question.options.forEach((option, index) => {
+                html += `
+                    <div class="option" data-index="${index}">
+                        ${option.text}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            quizContainer.innerHTML = html;
+
+            // Add event listeners to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', selectOption);
+            });
+        }
+
+        // Handle option selection
+        function selectOption(e) {
+            // Remove selected class from all options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Add selected class to clicked option
+            e.target.classList.add('selected');
+        }
+
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = ((currentQuestion + 1) / quizData.questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Handle next button click
+        nextBtn.addEventListener('click', () => {
+            const selectedOption = document.querySelector('.option.selected');
+            
+            if (!selectedOption) {
+                alert('Please select an option');
+                return;
+            }
+
+            // Save selection
+            const question = quizData.questions[currentQuestion];
+            const optionIndex = parseInt(selectedOption.dataset.index);
+            const selectedOptionData = question.options[optionIndex];
+            
+            userSelections.push({
+                question: question.question,
+                selectedOption: selectedOptionData
+            });
+
+            // Update scores
+            if (question.type === 'direction') {
+                // Add points to all departments in this direction
+                quizData.departments.forEach(dept => {
+                    if (dept.direction === selectedOptionData.direction) {
+                        departmentScores[dept.id] += 3;
+                    }
+                });
+            } else {
+                // Add points to specific departments
+                selectedOptionData.departments.forEach(deptId => {
+                    departmentScores[deptId] += 2;
+                });
+            }
+
+            // Move to next question or show results
+            currentQuestion++;
+            
+            if (currentQuestion < quizData.questions.length) {
+                showQuestion();
+                updateProgressBar();
+            } else {
+                checkForTie();
+            }
+        });
+
+        // Check if there's a tie for first place
+        function checkForTie() {
+            const scores = Object.entries(departmentScores);
+            scores.sort((a, b) => b[1] - a[1]);
+            
+            // Check if top departments have the same score
+            const topScore = scores[0][1];
+            const tiedDepartments = scores.filter(score => score[1] === topScore);
+            
+            if (tiedDepartments.length > 1) {
+                showTieBreaker(tiedDepartments);
+            } else {
+                showResults();
+            }
+        }
+
+        // Show tie breaker question
+        function showTieBreaker(tiedDepartments) {
+            tieBreakerActive = true;
+            quizContainer.style.display = 'none';
+            nextBtn.style.display = 'none';
+            tieBreaker.style.display = 'block';
+            
+            const tieBreakerQuestion = quizData.tieBreakers[0];
+            tieQuestion.textContent = tieBreakerQuestion.question;
+            
+            // Filter options to only those relevant to tied departments
+            const relevantOptions = tieBreakerQuestion.options.filter(option => {
+                return option.departments.some(dept => 
+                    tiedDepartments.some(tied => tied[0] === dept)
+                );
+            });
+            
+            let html = '';
+            relevantOptions.forEach((option, index) => {
+                html += `
+                    <div class="option" data-index="${index}">
+                        ${option.text}
+                    </div>
+                `;
+            });
+            
+            tieOptions.innerHTML = html;
+            
+            // Add event listeners to options
+            document.querySelectorAll('#tie-options .option').forEach(option => {
+                option.addEventListener('click', selectTieOption);
+            });
+        }
+
+        // Handle tie breaker option selection
+        function selectTieOption(e) {
+            // Remove selected class from all options
+            document.querySelectorAll('#tie-options .option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Add selected class to clicked option
+            e.target.classList.add('selected');
+        }
+
+        // Handle tie breaker submission
+        tieSubmit.addEventListener('click', () => {
+            const selectedOption = document.querySelector('#tie-options .option.selected');
+            
+            if (!selectedOption) {
+                alert('Please select an option');
+                return;
+            }
+
+            const optionIndex = parseInt(selectedOption.dataset.index);
+            const relevantOptions = quizData.tieBreakers[0].options.filter(option => {
+                return option.departments.some(dept => 
+                    Object.keys(departmentScores).includes(dept)
+                );
+            });
+            
+            const selectedOptionData = relevantOptions[optionIndex];
+            
+            // Add points to departments in the selected option
+            selectedOptionData.departments.forEach(deptId => {
+                if (departmentScores.hasOwnProperty(deptId)) {
+                    departmentScores[deptId] += 5;
+                }
+            });
+
+            showResults();
+        });
+
+        // Show results
+        function showResults() {
+            quizContainer.style.display = 'none';
+            nextBtn.style.display = 'none';
+            tieBreaker.style.display = 'none';
+            resultsPage.style.display = 'block';
+            
+            // Sort departments by score
+            const scores = Object.entries(departmentScores);
+            scores.sort((a, b) => b[1] - a[1]);
+            
+            // Display winner
+            const winner = quizData.departments.find(dept => dept.id === scores[0][0]);
+            winnerName.textContent = winner.name;
+            winnerDesc.textContent = winner.description;
+            document.querySelector('.winner-img img').src = winner.image;
+            
+            // Display full ranking
+            let html = '';
+            scores.forEach((score, index) => {
+                const dept = quizData.departments.find(d => d.id === score[0]);
+                html += `
+                    <div class="ranking-item">
+                        <div class="ranking-number">${index + 1}</div>
+                        <div class="ranking-info">
+                            <div class="ranking-name">${dept.name}</div>
+                            <div class="ranking-desc">${dept.description}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            rankingList.innerHTML = html;
+        }
+
+        // Start the quiz
+        initQuiz();
+    </script>
+</body>
+</html>
