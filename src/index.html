@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyberpunk Engineering Quiz</title>
+    <!-- GSAP + Barba -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/@barba/core"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -18,7 +22,7 @@
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 10% 20%, rgba(0, 255, 235, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 90% 60%, rgba(255, 0, 200, 0.1) 0%, transparent 20%),
                 linear-gradient(to bottom, #0a0a16 0%, #141430 100%);
@@ -261,7 +265,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(0, 247, 255, 0.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 247, 255, 0.1) 1px, transparent 1px);
             background-size: 30px 30px;
@@ -270,9 +274,17 @@
         }
 
         @keyframes glow {
-            0% { text-shadow: 0 0 5px #00f7ff; }
-            50% { text-shadow: 0 0 20px #00f7ff, 0 0 30px #00f7ff; }
-            100% { text-shadow: 0 0 5px #00f7ff; }
+            0% {
+                text-shadow: 0 0 5px #00f7ff;
+            }
+
+            50% {
+                text-shadow: 0 0 20px #00f7ff, 0 0 30px #00f7ff;
+            }
+
+            100% {
+                text-shadow: 0 0 5px #00f7ff;
+            }
         }
 
         .glow-text {
@@ -283,17 +295,18 @@
             .options {
                 grid-template-columns: 1fr;
             }
-            
+
             h1 {
                 font-size: 2rem;
             }
-            
+
             .question {
                 font-size: 1.2rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="cyberpunk-grid"></div>
     <div class="container">
@@ -322,10 +335,12 @@
         <div class="results-page" id="results-page">
             <div class="winner">
                 <div class="winner-img">
-                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Winner Department">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                        alt="Winner Department">
                 </div>
                 <h2 class="winner-name" id="winner-name">Computer Engineering</h2>
-                <p class="winner-desc" id="winner-desc">For the logical problem-solver who wants to build the digital future through hardware and software.</p>
+                <p class="winner-desc" id="winner-desc">For the logical problem-solver who wants to build the digital
+                    future through hardware and software.</p>
             </div>
 
             <div class="ranking">
@@ -335,6 +350,10 @@
                 </div>
             </div>
         </div>
+
+        <!-- Transition Circle -->
+        <div class="transition-circle"></div>
+
     </div>
 
     <script>
@@ -348,93 +367,93 @@
                 "software": { name: "Software & Data", color: "#00ff95" }
             },
             departments: [
-                { 
-                    id: "chemical", 
-                    name: "Chemical Engineering", 
+                {
+                    id: "chemical",
+                    name: "Chemical Engineering",
                     direction: "earth",
                     description: "Focuses on processes that convert raw materials into valuable products.",
                     image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "civil", 
-                    name: "Civil Engineering", 
+                {
+                    id: "civil",
+                    name: "Civil Engineering",
                     direction: "structures",
                     description: "Designs and constructs infrastructure like bridges, roads, and buildings.",
                     image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "architecture", 
-                    name: "Architecture", 
+                {
+                    id: "architecture",
+                    name: "Architecture",
                     direction: "structures",
                     description: "Blends creativity with technical knowledge to design functional and aesthetic structures.",
                     image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "computer", 
-                    name: "Computer Engineering", 
+                {
+                    id: "computer",
+                    name: "Computer Engineering",
                     direction: "software",
                     description: "For the logical problem-solver who wants to build the digital future through hardware and software.",
                     image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "electrical", 
-                    name: "Electrical Engineering", 
+                {
+                    id: "electrical",
+                    name: "Electrical Engineering",
                     direction: "hardware",
                     description: "Works with electrical systems, from microchips to power grids.",
                     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "mechanical-power", 
-                    name: "Mechanical Power", 
+                {
+                    id: "mechanical-power",
+                    name: "Mechanical Power",
                     direction: "motion",
                     description: "Focuses on energy conversion, thermodynamics, and power generation systems.",
                     image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "mechanical-production", 
-                    name: "Mechanical Production", 
+                {
+                    id: "mechanical-production",
+                    name: "Mechanical Production",
                     direction: "motion",
                     description: "Focuses on manufacturing processes, machinery design, and production systems.",
                     image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "medical", 
-                    name: "Medical Engineering", 
+                {
+                    id: "medical",
+                    name: "Medical Engineering",
                     direction: "software",
                     description: "Combines engineering principles with medical sciences to develop healthcare technologies.",
                     image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "communications", 
-                    name: "Communications Engineering", 
+                {
+                    id: "communications",
+                    name: "Communications Engineering",
                     direction: "hardware",
                     description: "Works on communication systems, from fiber optics to wireless networks.",
                     image: "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "aerospace", 
-                    name: "Aerospace Engineering", 
+                {
+                    id: "aerospace",
+                    name: "Aerospace Engineering",
                     direction: "motion",
                     description: "Designs and develops aircraft, spacecraft, satellites, and missiles.",
                     image: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "petroleum", 
-                    name: "Petroleum Engineering", 
+                {
+                    id: "petroleum",
+                    name: "Petroleum Engineering",
                     direction: "earth",
                     description: "Focuses on extraction of oil and gas from underground reservoirs.",
                     image: "https://images.unsplash.com/photo-1618477388957-7a23ff3e15a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "mining", 
-                    name: "Mining Engineering", 
+                {
+                    id: "mining",
+                    name: "Mining Engineering",
                     direction: "earth",
                     description: "Focuses on the extraction of mineral resources from the earth.",
                     image: "https://images.unsplash.com/photo-1541336032412-2048a678540d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 },
-                { 
-                    id: "metals", 
-                    name: "Metals Engineering", 
+                {
+                    id: "metals",
+                    name: "Metals Engineering",
                     direction: "earth",
                     description: "Specializes in the properties, production, and applications of metals.",
                     image: "https://images.unsplash.com/photo-1583513364301-f9339bc6122c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
@@ -588,7 +607,7 @@
         // Handle next button click
         nextBtn.addEventListener('click', () => {
             const selectedOption = document.querySelector('.option.selected');
-            
+
             if (!selectedOption) {
                 alert('Please select an option');
                 return;
@@ -598,7 +617,7 @@
             const question = quizData.questions[currentQuestion];
             const optionIndex = parseInt(selectedOption.dataset.index);
             const selectedOptionData = question.options[optionIndex];
-            
+
             userSelections.push({
                 question: question.question,
                 selectedOption: selectedOptionData
@@ -621,7 +640,7 @@
 
             // Move to next question or show results
             currentQuestion++;
-            
+
             if (currentQuestion < quizData.questions.length) {
                 showQuestion();
                 updateProgressBar();
@@ -634,11 +653,11 @@
         function checkForTie() {
             const scores = Object.entries(departmentScores);
             scores.sort((a, b) => b[1] - a[1]);
-            
+
             // Check if top departments have the same score
             const topScore = scores[0][1];
             const tiedDepartments = scores.filter(score => score[1] === topScore);
-            
+
             if (tiedDepartments.length > 1) {
                 showTieBreaker(tiedDepartments);
             } else {
@@ -652,17 +671,17 @@
             quizContainer.style.display = 'none';
             nextBtn.style.display = 'none';
             tieBreaker.style.display = 'block';
-            
+
             const tieBreakerQuestion = quizData.tieBreakers[0];
             tieQuestion.textContent = tieBreakerQuestion.question;
-            
+
             // Filter options to only those relevant to tied departments
             const relevantOptions = tieBreakerQuestion.options.filter(option => {
-                return option.departments.some(dept => 
+                return option.departments.some(dept =>
                     tiedDepartments.some(tied => tied[0] === dept)
                 );
             });
-            
+
             let html = '';
             relevantOptions.forEach((option, index) => {
                 html += `
@@ -671,9 +690,9 @@
                     </div>
                 `;
             });
-            
+
             tieOptions.innerHTML = html;
-            
+
             // Add event listeners to options
             document.querySelectorAll('#tie-options .option').forEach(option => {
                 option.addEventListener('click', selectTieOption);
@@ -694,7 +713,7 @@
         // Handle tie breaker submission
         tieSubmit.addEventListener('click', () => {
             const selectedOption = document.querySelector('#tie-options .option.selected');
-            
+
             if (!selectedOption) {
                 alert('Please select an option');
                 return;
@@ -702,13 +721,13 @@
 
             const optionIndex = parseInt(selectedOption.dataset.index);
             const relevantOptions = quizData.tieBreakers[0].options.filter(option => {
-                return option.departments.some(dept => 
+                return option.departments.some(dept =>
                     Object.keys(departmentScores).includes(dept)
                 );
             });
-            
+
             const selectedOptionData = relevantOptions[optionIndex];
-            
+
             // Add points to departments in the selected option
             selectedOptionData.departments.forEach(deptId => {
                 if (departmentScores.hasOwnProperty(deptId)) {
@@ -725,17 +744,17 @@
             nextBtn.style.display = 'none';
             tieBreaker.style.display = 'none';
             resultsPage.style.display = 'block';
-            
+
             // Sort departments by score
             const scores = Object.entries(departmentScores);
             scores.sort((a, b) => b[1] - a[1]);
-            
+
             // Display winner
             const winner = quizData.departments.find(dept => dept.id === scores[0][0]);
             winnerName.textContent = winner.name;
             winnerDesc.textContent = winner.description;
             document.querySelector('.winner-img img').src = winner.image;
-            
+
             // Display full ranking
             let html = '';
             scores.forEach((score, index) => {
@@ -750,7 +769,7 @@
                     </div>
                 `;
             });
-            
+
             rankingList.innerHTML = html;
         }
 
@@ -758,4 +777,5 @@
         initQuiz();
     </script>
 </body>
+
 </html>
