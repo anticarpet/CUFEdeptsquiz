@@ -43,7 +43,7 @@ body {
 
 @font-face {
   font-family: "Somar";
-  src: url("/src/fonts/SomarMedium.otf") format("opentype");
+  src: url("../fonts/SomarMedium.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
