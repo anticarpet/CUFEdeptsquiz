@@ -50,11 +50,14 @@ body {
 
 [lang="ar"] {
     --font-family: 'Somar', sans-serif;
+    --direction: rtl;
 }
 
 /*note to future 3nan: find a better font for English!*/
+/*future 3nan had enough notes he's gonna forget all of them */
 [lang="en"] {
     --font-family: 'Cairo', sans-serif;
+    --direction: ltr;
 }
 
 /* Background Engineering Graphics */
@@ -75,7 +78,7 @@ body {
 
 .bg-graphic {
     position: absolute;
-    stroke: var(--text-secondary);
+    stroke: #000000;
     fill: none;
     stroke-width: 2;
     animation: float 20s infinite ease-in-out;
@@ -318,6 +321,18 @@ body {
     pointer-events: none;
     z-index: 9999;
     transform: scale(0);
+    opacity: 0;
+}
+
+.transition-circle2 {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: scale(500);
     opacity: 0;
 }
 

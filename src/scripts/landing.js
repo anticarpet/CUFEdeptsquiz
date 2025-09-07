@@ -118,8 +118,10 @@ class WebsiteController {
             duration: 0.8,
             ease: "power2.out",
             onComplete: () => {
-                // Note to future 3nan: Replace with actual navigation logic
+                // Note to future 3nan ( sajid ) : Replace with actual navigation logic
                 // like: window.location.href = 'quiz.html';
+                window.location.href = 'quiz.html'
+                // lmaoooooooo
                 console.log('Navigate to quiz page');
 
                 // just reset the circle for demo (should be handled on page load)
@@ -223,3 +225,4 @@ window.addEventListener('resize', () => {
         gsap.set('.transition-circle', { scale: 0, opacity: 0 });
     }, 150);
 });
+

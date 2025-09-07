@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Major Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-primary));
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            color: #333;
+        }
+
+        .check-image {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url() no-repeat center center;
+            background-size: cover;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.0);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.0);
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: linear-gradient(to right, #1a237e00, #28359300);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .quiz-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .question-box {
+            padding: 25px;
+
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            direction: var(--direction);
+        }
+
+        .option-label {
+            display: block;
+            padding: 15px;
+            margin-bottom: 12px;
+            background-color: var(--bg-secondary);
+            direction: var(--direction);
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-label:hover {
+            background-color: #e9ecef;
+            border-color: #ced4da;
+            transform: translateY(-2px);
+            color: #0d47a1;
+        }
+
+        .option-input:checked+.option-label {
+            background-color: #e3f2fd;
+            border-color: #2196f3;
+            color: #0d47a1;
+            font-weight: 600;
+        }
+
+        .option-input {
+            display: none;
+        }
+
+        .image-option {
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .progress-container {
+            padding: 0 20px;
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .result-card {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .department-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #1a237e;
+        }
+
+        .department-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 15px;
+        }
+
+        .department-desc {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .start-screen {
+            text-align: center;
+            padding: 50px 30px;
+        }
+
+        .start-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            margin-top: 30px;
+            background: linear-gradient(to right, #1a237e, #283593);
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .engineering-icon {
+            font-size: 5rem;
+            color: #1a237e;
+            margin-bottom: 20px;
+        }
+
+        .option-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .option-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(26, 35, 126, 0.8);
+            color: white;
+            padding: 10px;
+            font-weight: 600;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .option-image-container:hover .option-overlay {
+            transform: translateY(0);
+        }
+    </style>
+
+    <link href="styles/style.css" rel="stylesheet">
+
+</head>
+
+
+
+<body data-theme="dark">
+    <div class="transition-circle2"></div>
+    <div class="bg-graphics">
+
+        <!-- Gear -->
+        <svg class="bg-graphic" style="top: 10%; left: 15%; width: 80px; height: 80px;" viewBox="0 0 24 24">
+            <path
+                d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7.29C13.74,7.7 14.33,8.27 14.76,8.97L16.33,8.14C16.74,7.9 17.26,8 17.5,8.41C18.45,10.1 18.45,12.1 17.5,13.79C17.26,14.2 16.74,14.3 16.33,14.06L14.76,13.23C14.33,13.93 13.74,14.5 13,14.91V16.47C13.6,16.81 14,17.46 14,18.2C14,19.22 13.22,20 12.2,20H11.8C10.78,20 10,19.22 10,18.2C10,17.46 10.4,16.81 11,16.47V14.91C10.26,14.5 9.67,13.93 9.24,13.23L7.67,14.06C7.26,14.3 6.74,14.2 6.5,13.79C5.55,12.1 5.55,10.1 6.5,8.41C6.74,8 7.26,7.9 7.67,8.14L9.24,8.97C9.67,8.27 10.26,7.7 11,7.29V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z" />
+        </svg>
+
+        <!-- Circuit -->
+        <svg class="bg-graphic" style="top: 20%; right: 10%; width: 120px; height: 60px;" viewBox="0 0 24 12">
+            <path
+                d="M2,6 L6,6 M6,2 L6,10 M6,6 L10,6 M10,2 L10,10 M10,6 L14,6 M18,6 L22,6 M14,2 Q16,2 16,6 Q16,10 18,10" />
+            <circle cx="6" cy="6" r="1" fill="currentColor" />
+            <circle cx="10" cy="6" r="1" fill="currentColor" />
+            <circle cx="18" cy="6" r="1" fill="currentColor" />
+        </svg>
+
+        <!-- Molecule -->
+        <svg class="bg-graphic" style="top: 60%; left: 5%; width: 100px; height: 100px;" viewBox="0 0 24 24">
+            <circle cx="6" cy="6" r="3" />
+            <circle cx="18" cy="6" r="3" />
+            <circle cx="12" cy="18" r="3" />
+            <line x1="8.5" y1="7.5" x2="15.5" y2="7.5" />
+            <line x1="8.5" y1="8.5" x2="10.5" y2="16" />
+            <line x1="15.5" y1="8.5" x2="13.5" y2="16" />
+        </svg>
+
+        <!-- Building -->
+        <svg class="bg-graphic" style="top: 5%; right: 25%; width: 90px; height: 90px;" viewBox="0 0 24 24">
+            <path
+                d="M15,11V5L12,2L9,5V7H7V21H17V11H15M11,6H13V8H11V6M11,10H13V12H11V10M11,14H13V16H11V14M11,18H13V20H11V18M9,12H7V10H9V12M9,16H7V14H9V16M9,20H7V18H9V20M17,12H19V14H17V12M17,16H19V18H17V16M17,20H19V22H17V20Z" />
+        </svg>
+
+        <!-- Computer Chip -->
+        <svg class="bg-graphic" style="top: 70%; right: 20%; width: 110px; height: 110px;" viewBox="0 0 24 24">
+            <path
+                d="M6,4H18A2,2 0 0,1 20,6V18A2,2 0 0,1 18,20H6A2,2 0 0,1 4,18V6A2,2 0 0,1 6,4M6,6V18H18V6H6M8,8H16V16H8V8M10,2H14V4H10V2M10,20H14V22H10V20M2,10H4V14H2V10M20,10H22V14H20V10Z" />
+        </svg>
+
+        <!-- DNA Helix -->
+        <svg class="bg-graphic" style="top: 40%; left: 75%; width: 70px; height: 140px;"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor">
+            <path
+                d="M200-40v-40q0-139 58-225.5T418-480q-102-88-160-174.5T200-880v-40h80v40q0 11 .5 20.5T282-840h396q1-10 1.5-19.5t.5-20.5v-40h80v40q0 139-58 225.5T542-480q102 88 160 174.5T760-80v40h-80v-40q0-11-.5-20.5T678-120H282q-1 10-1.5 19.5T280-80v40h-80Zm138-640h284q13-19 22.5-38t17.5-42H298q8 22 17.5 41.5T338-680Zm142 148q20-17 39-34t36-34H405q17 17 36 34t39 34Zm-75 172h150q-17-17-36-34t-39-34q-20 17-39 34t-36 34ZM298-200h364q-8-22-17.5-41.5T622-280H338q-13 19-22.5 38T298-200Z" />
+        </svg>
+
+
+        <!-- Mechanical Parts -->
+        <svg class="bg-graphic" style="top: 80%; left: 60%; width: 100px; height: 60px;" viewBox="0 0 24 12">
+            <rect x="2" y="4" width="8" height="4" rx="1" />
+            <rect x="14" y="4" width="8" height="4" rx="1" />
+            <circle cx="6" cy="6" r="1.5" fill="none" />
+            <circle cx="18" cy="6" r="1.5" fill="none" />
+            <line x1="10" y1="6" x2="14" y2="6" />
+        </svg>
+
+        <!-- Signal Wave -->
+        <svg class="bg-graphic" style="top: 30%; left: 40%; width: 120px; height: 40px;" viewBox="0 0 24 8">
+            <path d="M2,4 Q4,2 6,4 T10,4 T14,4 T18,4 T22,4" fill="none" />
+            <path d="M2,4 Q4,6 6,4 T10,4 T14,4 T18,4 T22,4" fill="none" />
+        </svg>
+    </div>
+
+    <div class="container py-5">
+        <div class="quiz-container">
+            <!-- <div class="quiz-header">
+                <h1>Engineering Major Quiz</h1>
+                <p>Discover which engineering specialization suits you best</p>
+            </div> -->
+
+
+
+            <div id="start-screen" class="start-screen" style="display: none;">
+                <div class="engineering-icon">⚙️</div>
+                <h2>Find Your Engineering Path</h2>
+                <p>This quiz will help you discover which engineering major aligns with your interests, skills, and
+                    career aspirations. Answer honestly for the most accurate results!</p>
+                <button class="btn btn-primary start-btn" onclick="startQuiz()">Begin Quiz</button>
+            </div>
+
+            <form id="quiz-form">
+                <!-- Questions will be dynamically inserted here -->
+            </form>
+
+            <div class="progress-container">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                </div>
+            </div>
+
+            <div id="result-container" class="result-card" style="display: none;">
+                <!-- Results will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/anancopy.js"></script>
+
+
+
+
+
+
+    <script>
+        let lng = localStorage.getItem('preferred-language');
+        function choose(eng, ar){
+            if (lng == "en") { return eng; } else { return ar; }
+        }
+
+        // testing something
+        console.log(lng);
+        console.log(localStorage.getItem('preferred-theme'));
+        // Quiz data structure
+
+        const quizData = [
+            {
+                question: choose("Where would you like to work in the future?","تحب تشتغل ايه قدام؟"),
+                type: "checkbox",
+                name: "workplace",
+                minSelect: 1,
+                maxSelect: 1,
+                options: [
+                    {
+                        text: choose("On a mobile site, outdoors","بره في الموقع"),
+                        value: "outdoors",
+                        scores: { "PGE": 20, "MET": 20, "MIN": 20, "CHE": 20, "CVE": 20 }
+                    },
+                    {
+                        text: choose("In an office with designs/plans","في المكتب بصمم"),
+                        value: "office",
+                        scores: { "CVE": 20, "ARC": 20 }
+                    },
+                    {
+                        text: choose("In a factory or workshop","في المصنع او الورشه"),
+                        value: "factory",
+                        scores: { "MDP": 20, "MEP": 20, "AER": 20 }
+                    },
+                    {
+                        text: choose("In a lab with equipment","في المعمل مع ادواتي"),
+                        value: "lab",
+                        scores: { "EPE": 20, "EEC": 20, "SBE": 20 }
+                    },
+                    {
+                        text: choose("At home on a laptop","في البيت عاللاب"),
+                        value: "remote",
+                        scores: { "CMP": 20, "EEC": 10, "ARC": 20 }
+                    }
+                ]
+            },
+            {
+                question: choose("What's the first thing that comes to your mind when thinking about Engineering?", "ايه اول حاجه تخطر على بالك لما تسمع هندسه؟"),
+                type: "image",
+                name: "engineering_concept",
+                minSelect: 1,
+                maxSelect: 1,
+                options: [
+                    {
+                        text: "Computers",
+                        value: "computers",
+                        image: "images/comp.jpg",
+                        scores: { "CMP": 30, "EEC": 30 }
+                    },
+                    {
+                        text: "Biomedical",
+                        value: "biomedical",
+                        image: "images/biomed.jpg",
+                        scores: { "SBE": 30, "MDP": 30 }
+                    },
+                    {
+                        text: "Chemical",
+                        value: "chemical",
+                        image: "images/chem.jpg",
+                        scores: { "CHE": 40, "PGE": 20, "MET": 20, "MIN": 20 }
+                    },
+                    {
+                        text: "Civil",
+                        value: "civil",
+                        image: "images/civil.jpg",
+                        scores: { "ARC": 30, "CVE": 40 }
+                    },
+                    {
+                        text: "Mechanical",
+                        value: "mechanical",
+                        image: "images/mech.jpg",
+                        scores: { "MDP": 40, "MEP": 40, "AER": 30 }
+                    },
+                    {
+                        text: "Electrical",
+                        value: "electrical",
+                        image: "images/elec.jpg",
+                        scores: { "EEC": 20, "EPE": 40 }
+                    }
+                ]
+            },
+            {
+                question: choose("What are your four favourite subjects?","تفضل انهي اربع مواد من دول؟"),
+                type: "checkbox",
+                name: "subjects",
+                minSelect: 4,
+                maxSelect: 4,
+                options: [
+                    {
+                        text: choose("Math (calculus)","تفاضل و تكامل"),
+                        value: "calculus",
+                        scores: { "SBE": 5, "CMP": 5, "EEC": 15, "EPE": 15 }
+                    },
+                    {
+                        text: choose("Math (geometry)","هندسه"),
+                        value: "geometry",
+                        scores: { "ARC": 20, "CVE": 20 }
+                    },
+                    {
+                        text: choose("Math (algebra)","جبر"),
+                        value: "algebra",
+                        scores: { "SBE": 15, "CMP": 15, "EEC": 10, "EPE": 10 }
+                    },
+                    {
+                        text: choose("Physics","فيزياء"),
+                        value: "physics",
+                        scores: { "AER": 15, "EEC": 15, "EPE": 15, "MEP": 15, "MDP": 20 }
+                    },
+                    {
+                        text: choose("Mechanics (statics)","استاتيكا"),
+                        value: "statics",
+                        scores: { "MEP": 15, "CVE": 20, "MDP": 15, "AER": 20, "ARC": 20 }
+                    },
+                    {
+                        text: choose("Mechanics (dynamics)","ديناميكا"),
+                        value: "dynamics",
+                        scores: { "MEP": 15, "AER": 30, "MDP": 15 }
+                    },
+                    {
+                        text: choose("Chemistry","كيمياء"),
+                        value: "chemistry",
+                        scores: { "PGE": 15, "MET": 15, "MIN": 15, "CHE": 15 }
+                    },
+                    {
+                        text: choose("Biology","احياء"),
+                        value: "biology",
+                        scores: { "SBE": 20 }
+                    },
+                    {
+                        text: choose("Computer Science","البرمجه"),
+                        value: "computer_science",
+                        scores: { "SBE": 15, "CMP": 20 }
+                    }
+                ]
+            },
+            {
+                question: choose("Let's say you aren't in engineering, what would you major in instead?","لو ماكنتش دخلت هندسه,كنت هتدخل كلية ايه؟"),
+                type: "checkbox",
+                name: "alternate_major",
+                minSelect: 1,
+                maxSelect: 1,
+                options: [
+                    {
+                        text: choose("Natural sciences","علوم"),
+                        value: "sciences",
+                        scores: { "CHE": 15, "SBE": 15, "MEP": 15 }
+                    },
+                    {
+                        text: choose("Fine arts / Architecture","فنون جميله / عماره"),
+                        value: "arts",
+                        scores: { "ARC": 30 }
+                    },
+                    {
+                        text: choose("Computer science","حاسبات"),
+                        value: "cs",
+                        scores: { "EEC": 15, "CMP": 20, "SBE": 15 }
+                    },
+                    {
+                        text: choose("Urban planning","تخطيط عمراني"),
+                        value: "urban_planning",
+                        scores: { "CVE": 30, "ARC": 20 }
+                    },
+                    {
+                        text: choose("I don't know","مش عارف"),
+                        value: "unsure",
+                        scores: { "EPE": 15, "MDP": 15, "MEP": 15, "AER": 15 }
+                    }
+                ]
+            },
+            {
+                question: choose("Which two global problems are you most passionate about solving?","ايه اكتر قضيتين عالميه انت متحفز تحلها؟"),
+                type: "checkbox",
+                name: "global_problems",
+                minSelect: 2,
+                maxSelect: 2,
+                options: [
+                    {
+                        text: choose("Sustainable Energy & Climate Change","تغير المناخ و الطاقه المستدامه"),
+                        value: "energy",
+                        scores: { "MEP": 30, "CHE": 30, "EPE": 20 }
+                    },
+                    {
+                        text: choose("Building the Cities of the Future","تعمير مدن المستقبل"),
+                        value: "cities",
+                        scores: { "CVE": 30, "ARC": 30, "CMP": 20, "EEC": 20 }
+                    },
+                    {
+                        text: choose("Optimizing Production & Manufacturing","تطوير الانتاج و الصناعه"),
+                        value: "production",
+                        scores: { "MDP": 40, "CMP": 10, "EEC": 10 }
+                    },
+                    {
+                        text: choose("Connecting the World","الاتصال بالعالم"),
+                        value: "connectivity",
+                        scores: { "EEC": 30, "CMP": 20 }
+                    },
+                    {
+                        text: choose("Advancing Human Health with Technology","اطورالرعايه الصحيه بالتكنولوجيا"),
+                        value: "health",
+                        scores: { "SBE": 40, "CMP": 10 }
+                    },
+                    {
+                        text: choose("Exploring Space and the Universe","استطلع الفضاء"),
+                        value: "space",
+                        scores: { "AER": 40 }
+                    },
+                    {
+                        text: choose("Responsible Resource Extraction","استخراج الموارد بطرق امنه"),
+                        value: "resources",
+                        scores: { "MET": 40, "MIN": 40, "PGE": 40 }
+                    }
+                ]
+            },
+            {
+                question: choose("Talk a bit about yourself.","كلمنا عن نفسك شويتين"),
+                type: "checkbox",
+                name: "personal_traits",
+                minSelect: 3,
+                maxSelect: 3,
+                options: [
+                    {
+                        text: choose("I'm a visual thinker","انا بفكر بطريقه بصريه"),
+                        value: "visual",
+                        scores: { "EPE": 5, "ARC": 15 }
+                    },
+                    {
+                        text: choose("I'm an abstract thinker","انا بفكر في المجمل"),
+                        value: "abstract",
+                        scores: { "EPE": 10, "CMP": 10 }
+                    },
+                    {
+                        text: choose("I'm a team player","انا بحب اشتغل مع زمايلي"),
+                        value: "team_player",
+                        scores: { "CVE": 10, "ARC": 10, "CHE": 5, "AER": 10, "MEP": 10 }
+                    },
+                    {
+                        text: choose("I can adapt","انا اعرف اتأقلم"),
+                        value: "adaptable",
+                        scores: { "CMP": 10 }
+                    },
+                    {
+                        text: choose("I like to dive into my favourite field","انا احب اتعمق في مجالي المفضل"),
+                        value: "specialized",
+                        scores: { "CMP": 10, "EEC": 10, "AER": 10 }
+                    },
+                    {
+                        text: choose("I like to know a little bit of everything","انا احب اعرف شويه من كل حاجه"),
+                        value: "generalist",
+                        scores: { "MDP": 10, "SBE": 10, "CVE": 10 }
+                    },
+                    {
+                        text: choose("I'd like to reinvent the wheel","عايز اعيد اختراع العجله"),
+                        value: "innovator",
+                        scores: { "AER": 5, "CHE": 10, "CMP": 5, "EEC": 10, "EPE": 10 }
+                    },
+                    {
+                        text: choose("I'm empathetic","انا متعاطف"),
+                        value: "empathetic",
+                        scores: { "SBE": 10, "CVE": 10 }
+                    },
+                    {
+                        text: choose("I add my touch","عايز ازود التاتش بتاعي"),
+                        value: "creative",
+                        scores: { "ARC": 15 }
+                    },
+                    {
+                        text: choose("I work with my hands","انا بحب اشتغل بايدي"),
+                        value: "hands_on",
+                        scores: { "EPE": 5, "MEP": 10, "MDP": 10 }
+                    },
+                    {
+                        text: choose("I'm curious","انا انسان فضول"),
+                        value: "curious",
+                        scores: { "MDP": 10, "MEP": 10, "EPE": 10, "EEC": 10 }
+                    },
+                    {
+                        text: choose("I'm practical","انا عملي "),
+                        value: "practical",
+                        scores: { "CVE": 10, "MDP": 10 }
+                    },
+                    {
+                        text: choose("I'm precise and detailed","انا بشتغل بدقه و حرص"),
+                        value: "detailed",
+                        scores: { "EPE": 10, "ARC": 10, "CHE": 10, "SBE": 10, "AER": 10, "MDP": 10, "MEP": 10 }
+                    },
+                    {
+                        text: choose("I'm logical","انا بشتغل بمنطق و ترتيب"),
+                        value: "logical",
+                        scores: { "CMP": 10, "EEC": 5 }
+                    },
+                    
+                ]
+            }
+        ];
+
+        // Department information
+        const departments = {
+            "PGE": { name: choose("Petroleum and Gas Engineering","هندسة البترول"), 
+            description: "You'll work on extracting oil and gas resources efficiently and safely." },
+            "MET": { name: choose("Metallurgical Engineering","هندسة الفلزات"),
+             description: "You'll specialize in metals, their properties, and how they're processed and used." },
+            "MIN": { name: choose("Mining Engineering","هندسة التعدين"), 
+            description: "You'll focus on extracting minerals from the earth in a responsible way." },
+            "CHE": { name: choose("Chemical Engineering","الهندسة الكيميائيه"),
+             description: "You'll work with chemical processes to create new materials and products." },
+            "CVE": { name: choose("Civil Engineering","الهندسة المدنيه"), 
+            description: "You'll design and build infrastructure like roads, bridges, and buildings." },
+            "ARC": { name: choose("Architectural Engineering","الهندسة المعماريه"), 
+            description: "You'll combine architecture and engineering to create functional buildings." },
+            "MDP": { name: choose("Mechanical Design & Production","هندسة التصميم الميكانيكي و الانتاج"), 
+            description: "You'll design and create mechanical systems and products." },
+            "MEP": { name: choose("Mechanical Power Engineering","هندسة القوى الميكانيكيه"), 
+            description: "You'll work with energy systems and power generation." },
+            "AER": { name: choose("Aerospace Engineering","هندسة الطيران و الفضاء"),
+             description: "You'll design aircraft, spacecraft, and related systems." },
+            "EPE": { name: choose("Electrical Power Engineering","هندسة القوى الكهربائيه"), 
+            description: "You'll work with electrical systems and power distribution." },
+            "EEC": { name: choose("Electronics & Electrical Communications","هندسه الالكترونيات و الاتصلات الكهربيه"),
+             description: "You'll focus on electronic devices and communication systems." },
+            "SBE": { name: choose("Systems & Biomedical Engineering","الهندسة الحيوية الطبية و المنظومات"), 
+            description: "You'll apply engineering principles to medical and biological problems." },
+            "CMP": { name: choose("Computer Engineering","هندسة الحاسبات"), 
+            description: "You'll design and develop computer hardware and software systems." }
+        };
+
+        // Global variables
+        let currentQuestion = 0;
+        let userScores = {};
+        let userAnswers = {};
+
+        // Initialize user scores for all departments
+        function initializeScores() {
+            for (const dept in departments) {
+                userScores[dept] = 0;
+            }
+        }
+
+        // Start the quiz
+        function startQuiz() {
+            initializeScores();
+            gsap.to("#start-screen", {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => {
+                    document.getElementById("start-screen").style.display = "none";
+                    document.getElementById("quiz-form").style.display = "block";
+                    renderQuestion(currentQuestion);
+                    updateProgressBar();
+                    gsap.from(".question-box", { opacity: 0, y: 50, duration: 0.8 });
+                }
+            });
+        }
+
+        // Render a question
+        function renderQuestion(index) {
+            const question = quizData[index];
+            let html = `
+                <div class="question-box" id="question-${index}">
+                    <div class="question-text">${question.question}</div>
+                    <div class="options-container">
+            `;
+
+            if (question.type === "checkbox") {
+                question.options.forEach((option, i) => {
+                    html += `
+                        <input type="checkbox" id="q${index}-opt${i}" name="${question.name}" value="${option.value}" class="option-input">
+                        <label for="q${index}-opt${i}" class="option-label">
+                            ${option.text}
+                        </label>
+                    `;
+                });
+            } else if (question.type === "image") {
+                html += `<div class="row">`;
+                question.options.forEach((option, i) => {
+                    html += `
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <input type="radio" id="q${index}-opt${i}" name="${question.name}" value="${option.value}" class="option-input">
+                            <label for="q${index}-opt${i}" class="option-label" style="height: 180px; 
+                            background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0,0,0,0.1 )), url('${option.image}') no-repeat center center; background-size: cover;">
+                                
+                            </label>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            }
+
+            html += `
+                    </div>
+                    <div class="nav-buttons">
+            `;
+
+            if (index > 0) {
+                html += `<button type="button" class="btn btn-secondary rounded-5" onclick="navigateTo(${index - 1})">Previous</button>`;
+            } else {
+                html += `<div></div>`;
+            }
+
+            if (index < quizData.length - 1) {
+                html += `<button type="button" class="btn btn-primary" onclick="navigateTo(${index + 1})">Next</button>`;
+            } else {
+                html += `<button type="button" class="btn btn-success" onclick="calculateResult()">See Results</button>`;
+            }
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            document.getElementById("quiz-form").innerHTML = html;
+            setupOptionListeners(index);
+        }
+
+        // Set up event listeners for options
+        function setupOptionListeners(index) {
+            const question = quizData[index];
+            const options = document.querySelectorAll(`input[name="${question.name}"]`);
+
+            options.forEach(option => {
+                option.addEventListener("change", function () {
+                    if (question.type === "checkbox") {
+                        const checkedOptions = document.querySelectorAll(`input[name="${question.name}"]:checked`);
+
+                        if (checkedOptions.length > question.maxSelect) {
+                            this.checked = false;
+                            return;
+                        }
+                    }
+
+                    saveAnswer(index);
+                });
+            });
+        }
+
+        // Save the current answer
+        function saveAnswer(index) {
+            const question = quizData[index];
+            userAnswers[index] = [];
+
+            if (question.type === "checkbox") {
+                const checkedOptions = document.querySelectorAll(`input[name="${question.name}"]:checked`);
+                checkedOptions.forEach(option => {
+                    userAnswers[index].push(option.value);
+                });
+            } else {
+                const selectedOption = document.querySelector(`input[name="${question.name}"]:checked`);
+                if (selectedOption) {
+                    userAnswers[index] = [selectedOption.value];
+                }
+            }
+        }
+
+        // Navigate to a specific question
+        function navigateTo(index) {
+            saveAnswer(currentQuestion);
+
+            // Validate if minimum options are selected
+            const question = quizData[currentQuestion];
+            if (userAnswers[currentQuestion].length < question.minSelect) {
+                alert(`Please select at least ${question.minSelect} option(s).`);
+                return;
+            }
+
+            gsap.to(`#question-${currentQuestion}`, {
+                opacity: 0,
+                x: index > currentQuestion ? -50 : 50,
+                duration: 0.5,
+                onComplete: () => {
+                    currentQuestion = index;
+                    renderQuestion(currentQuestion);
+                    updateProgressBar();
+                    gsap.from(`#question-${currentQuestion}`, {
+                        opacity: 0,
+                        x: index > currentQuestion ? 50 : -50,
+                        duration: 0.5
+                    });
+                }
+            });
+        }
+
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            document.querySelector(".progress-bar").style.width = `${progress}%`;
+            document.querySelector(".progress-bar").setAttribute("aria-valuenow", progress);
+        }
+
+        // Calculate the final result
+        function calculateResult() {
+            saveAnswer(currentQuestion);
+
+            // Validate if minimum options are selected for the last question
+            const question = quizData[currentQuestion];
+            if (userAnswers[currentQuestion].length < question.minSelect) {
+                alert(`Please select at least ${question.minSelect} option(s).`);
+                return;
+            }
+
+            // Calculate scores from all answers
+            for (let i = 0; i < quizData.length; i++) {
+                if (userAnswers[i]) {
+                    userAnswers[i].forEach(answer => {
+                        const question = quizData[i];
+                        const option = question.options.find(opt => opt.value === answer);
+
+                        if (option && option.scores) {
+                            for (const dept in option.scores) {
+                                userScores[dept] += option.scores[dept];
+                            }
+                        }
+                    });
+                }
+            }
+
+            // Find the department with the highest score
+            let maxScore = 0;
+            let topDepartment = "";
+
+            for (const dept in userScores) {
+                if (userScores[dept] > maxScore) {
+                    maxScore = userScores[dept];
+                    topDepartment = dept;
+                }
+            }
+
+            // Display the result
+            showResult(topDepartment);
+        }
+
+        // Show the result
+        function showResult(deptCode) {
+            const dept = departments[deptCode];
+
+            gsap.to("#quiz-form", {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => {
+                    document.getElementById("quiz-form").style.display = "none";
+                    document.getElementById("result-container").style.display = "block";
+
+                    document.getElementById("result-container").innerHTML = `
+                        <div class="department-icon">⚙️</div>
+                        <h2 class="department-name">${dept.name}</h2>
+                        <p class="department-desc">${dept.description}</p>
+                        <p>Based on your answers, this engineering specialization seems to be the best fit for your interests and skills.</p>
+                        <button class="btn btn-primary mt-3" onclick="restartQuiz()">Take Again</button>
+                    `;
+
+                    gsap.from("#result-container", { opacity: 0, y: 50, duration: 0.8 });
+                }
+            });
+        }
+
+        // Restart the quiz
+        function restartQuiz() {
+            gsap.to("#result-container", {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => {
+                    currentQuestion = 0;
+                    userScores = {};
+                    userAnswers = {};
+                    initializeScores();
+
+                    document.getElementById("result-container").style.display = "none";
+                    document.getElementById("start-screen").style.display = "block";
+                    gsap.from("#start-screen", { opacity: 0, duration: 0.8 });
+                }
+            });
+        }
+
+        // Initialize the page
+        window.onload = function () {
+            document.getElementById("quiz-form").style.display = "none";
+            initializeScores();
+        };
+        startQuiz();
+    </script>
+</body>
+
+</html>
