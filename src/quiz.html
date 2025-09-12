@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=genetics" />
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -73,6 +74,8 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
+            user-select: none;
+            opacity: 1;
         }
 
         .option-label:hover {
@@ -100,10 +103,15 @@
             margin-bottom: 10px;
         }
 
+        .w-fit{
+            width: fit-content;
+        }
+
         .nav-buttons {
             display: flex;
             justify-content: space-between;
-            padding: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
 
         .progress-container {
@@ -189,6 +197,8 @@
             transform: translateY(0);
         }
     </style>
+    <link href="fontawesome-free-7.0.1-web/css/all.css" rel="stylesheet">
+    
 
     <link href="styles/style.css" rel="stylesheet">
 
@@ -270,13 +280,15 @@
 
 
 
-            <div id="start-screen" class="start-screen" style="display: none;">
+            <div id="start-screen" class="start-screen" >
                 <div class="engineering-icon">⚙️</div>
                 <h2>Find Your Engineering Path</h2>
                 <p>This quiz will help you discover which engineering major aligns with your interests, skills, and
                     career aspirations. Answer honestly for the most accurate results!</p>
                 <button class="btn btn-primary start-btn" onclick="startQuiz()">Begin Quiz</button>
             </div>
+
+                            
 
             <form id="quiz-form">
                 <!-- Questions will be dynamically inserted here -->
@@ -529,8 +541,8 @@
                 question: choose("Talk a bit about yourself.","كلمنا عن نفسك شويتين"),
                 type: "checkbox",
                 name: "personal_traits",
-                minSelect: 3,
-                maxSelect: 3,
+                minSelect: 5,
+                maxSelect: 5,
                 options: [
                     {
                         text: choose("I'm a visual thinker","انا بفكر بطريقه بصريه"),
@@ -610,31 +622,44 @@
         // Department information
         const departments = {
             "PGE": { name: choose("Petroleum and Gas Engineering","هندسة البترول"), 
-            description: "You'll work on extracting oil and gas resources efficiently and safely." },
+            description: choose("You'll work on extracting oil and gas resources efficiently and safely."
+                ,"هتشتغل على استخلاص موارد الزيت و الغاز بكفاءة و أمان " ) },
             "MET": { name: choose("Metallurgical Engineering","هندسة الفلزات"),
-             description: "You'll specialize in metals, their properties, and how they're processed and used." },
+             description: choose("You'll specialize in metals and materials, their properties, and how they're processed and used." 
+            ,"هتتخصص في المعادن، وخصائصها، وكيفية معالجتها، واستخدامها" ) },
             "MIN": { name: choose("Mining Engineering","هندسة التعدين"), 
-            description: "You'll focus on extracting minerals from the earth in a responsible way." },
+            description: choose("You'll focus on extracting minerals from the earth in a responsible way." 
+            ,"هتركز على استخراج المعادن من باطن الأرض بطريقة مسؤولة" ) },
             "CHE": { name: choose("Chemical Engineering","الهندسة الكيميائيه"),
-             description: "You'll work with chemical processes to create new materials and products." },
+             description: choose("You'll work with chemical processes to create new materials and products." 
+             ," على العمليات الكيميائية لإنتاج مواد و منتجات جديدة" ) },
             "CVE": { name: choose("Civil Engineering","الهندسة المدنيه"), 
-            description: "You'll design and build infrastructure like roads, bridges, and buildings." },
+            description:choose("You'll design and build infrastructure like roads, bridges, and buildings." 
+            ,"هتمسك بتصميم و بناء البنية التحتية مثل الطرق و الكباري و المباني" ) },
             "ARC": { name: choose("Architectural Engineering","الهندسة المعماريه"), 
-            description: "You'll combine architecture and engineering to create functional buildings." },
+            description: choose("You'll combine architecture and engineering to create functional buildings."
+            ,"هتجمع بين العمارة و الهندسة لإنشاء مبانٍ وظيفية" ) },
             "MDP": { name: choose("Mechanical Design & Production","هندسة التصميم الميكانيكي و الانتاج"), 
-            description: "You'll design and create mechanical systems and products." },
+            description: choose("You'll design and create mechanical systems and products."
+            ,"هتمسك بتصميم و إنشاء الأنظمة و المنتجات الميكانيكية " ) },
             "MEP": { name: choose("Mechanical Power Engineering","هندسة القوى الميكانيكيه"), 
-            description: "You'll work with energy systems and power generation." },
+            description: choose("You'll work with energy systems and power generation."
+            ,"هتشتغل على أنظمة الطاقة و توليد القوى" ) },
             "AER": { name: choose("Aerospace Engineering","هندسة الطيران و الفضاء"),
-             description: "You'll design aircraft, spacecraft, and related systems." },
+             description: choose("You'll design aircraft, spacecraft, and related systems."
+             ," هتصمم الطائرات، والمركبات الفضائية، والأنظمة المرتبطة بها" ) },
             "EPE": { name: choose("Electrical Power Engineering","هندسة القوى الكهربائيه"), 
-            description: "You'll work with electrical systems and power distribution." },
-            "EEC": { name: choose("Electronics & Electrical Communications","هندسه الالكترونيات و الاتصلات الكهربيه"),
-             description: "You'll focus on electronic devices and communication systems." },
+            description: choose("You'll work with electrical systems and power distribution."
+            ,"هتشتغل على أنظمة الكهرباء و توزيع الطاقة " ) },
+            "EEC": { name: choose("Electronics & Electrical Communications","هندسه الالكترونيات و الاتصالات الكهربيه"),
+             description: choose("You'll focus on electronic devices and communication systems."
+             ,"هتركز على الأجهزة الإلكترونية و أنظمة الاتصال" ) },
             "SBE": { name: choose("Systems & Biomedical Engineering","الهندسة الحيوية الطبية و المنظومات"), 
-            description: "You'll apply engineering principles to medical and biological problems." },
+            description: choose("You'll apply engineering principles to medical and biological problems." 
+            ,"حتطبق مبادئ المهندسة لحل المشكلات الطبية والبيولوجية " ) },
             "CMP": { name: choose("Computer Engineering","هندسة الحاسبات"), 
-            description: "You'll design and develop computer hardware and software systems." }
+            description: choose("You'll design and develop computer hardware and software systems." 
+            ,"هتمسك بتصميم وتطوير أنظمة الأجهزة و البرمجيات" ) }
         };
 
         // Global variables
@@ -705,13 +730,13 @@
             `;
 
             if (index > 0) {
-                html += `<button type="button" class="btn btn-secondary rounded-5" onclick="navigateTo(${index - 1})">Previous</button>`;
+                html += `<button type="button" class="btn btn-secondary rounded-5 me-auto" onclick="navigateTo(${index - 1})">Previous</button>`;
             } else {
                 html += `<div></div>`;
             }
 
             if (index < quizData.length - 1) {
-                html += `<button type="button" class="btn btn-primary" onclick="navigateTo(${index + 1})">Next</button>`;
+                html += `<button type="button" class="btn btn-primary ms-auto" onclick="navigateTo(${index + 1})" style="width: fit-content;">Next</button>`;
             } else {
                 html += `<button type="button" class="btn btn-success" onclick="calculateResult()">See Results</button>`;
             }
@@ -851,6 +876,7 @@
                 onComplete: () => {
                     document.getElementById("quiz-form").style.display = "none";
                     document.getElementById("result-container").style.display = "block";
+                    document.getElementById("result-container").style.opacity = 1;
 
                     document.getElementById("result-container").innerHTML = `
                         <div class="department-icon">⚙️</div>
@@ -877,7 +903,9 @@
                     initializeScores();
 
                     document.getElementById("result-container").style.display = "none";
+                    document.getElementById("quiz-form").style.opacity = 1; //
                     document.getElementById("start-screen").style.display = "block";
+                    document.getElementById("start-screen").style.opacity = 1; //
                     gsap.from("#start-screen", { opacity: 0, duration: 0.8 });
                 }
             });
@@ -888,7 +916,31 @@
             document.getElementById("quiz-form").style.display = "none";
             initializeScores();
         };
-        startQuiz();
+        startQuiz();  
+        //navigateTo(1);
+
+        /* icons:
+        - cve: <i class="fa-solid fa-helmet-safety"></i>
+        - arc: <i class="fa-solid fa-pen-ruler"></i>
+        - mep: <i class="fa-solid fa-gears"></i>
+        - mdp: <i class="fa-solid fa-screwdriver-wrench"></i>
+        - che: <i class="fa-solid fa-flask-vial"></i>
+        - pet: <i class="fa-solid fa-gas-pump"></i>
+        - min: <i class="fa-solid fa-hill-rockslide"></i>
+        - met: <i class="fa-solid fa-bottle-water"></i>
+        - sbe: <i class="fa-solid fa-dna"></i>
+        - emp: <i class="fa-solid fa-bolt"></i>
+        - aer: <i class="fa-solid fa-plane"></i>
+        - eec: <i class="fa-solid fa-microchip"></i>
+        - cmp: <i class="fa-solid fa-computer"></i>
+
+
+
+
+
+
+        */
+
     </script>
 </body>
 
