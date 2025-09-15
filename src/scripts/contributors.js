@@ -97,7 +97,7 @@ const contributors = shuffle([
     {
         name: "Esraa Esmat",
         role: "Data provider, graphic designer",
-        avatar: null
+        avatar: "images/peoples/esraa.jpeg"
     },
     {
         name: "Haneen Sayed",
