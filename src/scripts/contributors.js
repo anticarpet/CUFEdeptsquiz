@@ -99,6 +99,11 @@ const contributors = shuffle([
         role: "Data provider, graphic designer",
         avatar: null
     },
+    {
+        name: "Haneen Sayed",
+        role: "Editor",
+        avatar: null
+    },
 ]);
 
 // Group configurations - Define which contributors should be grouped together
