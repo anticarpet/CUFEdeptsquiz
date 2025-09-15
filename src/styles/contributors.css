@@ -44,7 +44,7 @@
     padding: 0 1rem;
 }
 
-/* Contributor Card - FULLY VISIBLE */
+/* Individual Contributor Card - FULLY VISIBLE */
 .contributor-card {
     background: var(--bg-secondary) !important;
     border-radius: 20px;
@@ -78,7 +78,125 @@
     transform: scaleX(1);
 }
 
-/* Avatar Styles */
+/* Group Card Styles */
+.group-card {
+    grid-column: span 2; /* Takes up 2 columns by default */
+    min-height: 300px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.group-card::before {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    height: 5px;
+}
+
+.group-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.group-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.group-description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+/* Group Avatars */
+.group-avatars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.group-member-avatar {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    padding: 3px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.group-member-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--bg-secondary);
+    border: 2px solid var(--bg-secondary);
+}
+
+.member-tooltip {
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.member-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid var(--bg-primary);
+}
+
+/* Group Members List */
+.group-members {
+    text-align: center;
+    margin-top: auto;
+}
+
+.members-list {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Hover Effects for Group Cards */
+.group-card:hover .group-title {
+    color: var(--secondary-color);
+}
+
+/* Avatar Styles for Individual Cards */
 .contributor-avatar-wrapper {
     position: relative;
     width: 120px;
@@ -144,6 +262,16 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .group-card {
+        grid-column: span 2;
+    }
+    
+    .contributors-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
     .contributors-section {
         padding: 5rem 1rem 2rem;
@@ -154,13 +282,33 @@
     }
 
     .contributors-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: 1fr;
         gap: 1.5rem;
         padding: 0;
     }
 
+    .group-card {
+        grid-column: span 1;
+        min-height: 280px;
+        padding: 2rem;
+    }
+
     .contributor-card {
         padding: 1.5rem;
+    }
+
+    .group-avatars {
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .group-member-avatar {
+        width: 70px;
+        height: 70px;
+    }
+
+    .group-title {
+        font-size: 1.5rem;
     }
 
     .contributor-avatar-wrapper {
@@ -187,12 +335,38 @@
     }
 
     .contributors-grid {
-        grid-template-columns: 1fr;
         gap: 1rem;
     }
 
-    .contributor-card {
+    .contributor-card,
+    .group-card {
         padding: 1.25rem;
+    }
+
+    .group-card {
+        min-height: 250px;
+    }
+
+    .group-avatars {
+        gap: 0.75rem;
+        margin: 1rem 0;
+    }
+
+    .group-member-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .group-title {
+        font-size: 1.3rem;
+    }
+
+    .group-description {
+        font-size: 0.9rem;
+    }
+
+    .members-list {
+        font-size: 0.85rem;
     }
 
     .contributor-avatar-wrapper {
@@ -212,8 +386,21 @@
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
+[data-theme="dark"] .group-card:hover {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
 [data-theme="dark"] .avatar-overlay {
     background: linear-gradient(135deg, rgba(100, 181, 246, 0.3), rgba(0, 188, 212, 0.3));
+}
+
+[data-theme="dark"] .member-tooltip {
+    background: var(--bg-secondary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .member-tooltip::before {
+    border-bottom-color: var(--bg-secondary);
 }
 
 /* Loading State for Back Button */
@@ -234,15 +421,21 @@
         padding: 2rem;
     }
 
-    .contributor-card {
+    .contributor-card,
+    .group-card {
         break-inside: avoid;
         box-shadow: none;
         border: 1px solid #ddd;
     }
+
+    .member-tooltip {
+        display: none;
+    }
 }
 
 /* Accessibility */
-.contributor-card:focus-visible {
+.contributor-card:focus-visible,
+.group-card:focus-visible {
     outline: 3px solid var(--primary-color);
     outline-offset: 2px;
 }
@@ -270,10 +463,22 @@ html {
 }
 
 /* RTL Specific Adjustments */
-[dir="rtl"] .contributor-card::before {
+[dir="rtl"] .contributor-card::before,
+[dir="rtl"] .group-card::before {
     transform-origin: right;
 }
 
 [dir="rtl"] #backBtn {
     flex-direction: row-reverse;
+}
+
+/* Special Grid Layouts */
+.contributors-grid.has-groups {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Ensure proper spacing between different card types */
+.group-card + .contributor-card,
+.contributor-card + .group-card {
+    margin-top: 0;
 }

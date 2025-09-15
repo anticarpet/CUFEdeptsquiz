@@ -1,35 +1,116 @@
 // Contributors data - Add your team members here
-const contributors = [
+function shuffle(arr) {
+  	for (let i = arr.length - 1; i > 0; i--) {
+    	const j = Math.floor(Math.random() * (i + 1));
+    	[arr[i], arr[j]] = [arr[j], arr[i]];
+  	}
+  	return arr;
+}
+
+
+
+
+// Used like so
+let arr = [2, 11, 37, 42];
+shuffle(arr);
+const contributors = shuffle([
     {
-        name: 'زينة علي',
-        role: 'Leader',
+        name: "Zeina Ali",
+        role: 'Team Leader',
         avatar: null // Will use default avatar
     },
     {
-        name: 'ساجد المناخلي',
+        name: "Sajid Elmanakhly",
+        role: '✨Lead web developer✨',
+        avatar: "images/peoples/Sajid.jpeg"
+    },
+    {
+        name: "Eslam Ahmed",
+        role: 'Lead designer',
+        avatar: "images/peoples/eslam.jpeg"
+    },
+    {
+        name: "Abdel-Moe'z Sayed",
+        role: "Lead developer",
+        avatar: "images/peoples/abmoez.jpeg"
+    },
+    {
+        name: "Ahmed Anan",
         role: 'Web Developer',
         avatar: null
     },
     {
-        name: 'أحمد عنان',
-        role: 'Web Developer',
+        name: "Menna Khaled",
+        role: 'Sticker Squad',
         avatar: null
     },
     {
-        name: 'منة خالد',
-        role: 'محد عزمها',
+        name: "Ahmed Hani",
+        role: 'Card Creator',
+        avatar: "images/peoples/hani.jpeg"
+    },
+    {
+        name: "Mohammad Fahd",
+        role: "graphic designer",
+        avatar: "images/peoples/fahd.jpeg"
+    },
+    {
+        name: "Shahd Yasser Abdel-Hady",
+        role: "graphic designer, content creator, marketing",
+        avatar: "images/peoples/shahd.jpeg"
+    },
+    {
+        name: "Yahya Ismail",
+        role: "graphic designer, content",
+        avatar: "images/peoples/yahya.jpeg"
+    },
+    {
+        name: "Shaimaa Omar Zidan",
+        role: "graphic designer, content creator",
+        avatar: "images/peoples/shaimaa.jpeg"
+    },
+    {
+        name: "Ahmed Atta",
+        role: "Content creator, organizer",
+        avatar: "images/peoples/atta.jpeg"
+    },
+    {
+        name: "Habiba Ayman",
+        role: "designer",
+        avatar: "images/peoples/habiba.jpeg"
+    },
+    {
+        name: "Ahmed Elewa",
+        role: "designer",
+        avatar: "images/peoples/elewa.jpeg"
+    },
+    {
+        name: "Moroj Mostafa",
+        role: "Content Creator",
         avatar: null
     },
     {
-        name: 'أحمد هاني',
-        role: 'Professinoal Falla7',
-        avatar: null
+        name: "Marwan Khaled",
+        role: "designer",
+        avatar: "images/peoples/marwan.jpeg"
     },
     {
-        name: 'محمد فهد',
-        role: 'منوفي',
+        name: "Esraa Esmat",
+        role: "Data provider, graphic designer",
         avatar: null
-    }
+    },
+]);
+
+// Group configurations - Define which contributors should be grouped together
+const groupConfigurations = [
+    // {
+    //     title: 'Stickers',
+    //     titleAr: "الاستيكر",
+    //     contributors: [3, 6], 
+    //     description: 'Creative minds behind the visual identity',
+    //     descriptionAr: 'العقول المبدعة وراء الهوية البصرية'
+    // }
+    // Add more group configurations as needed
 ];
 
 // Controller for the Contributors page
@@ -38,6 +119,7 @@ class ContributorsController {
         this.currentLang = 'ar';
         this.currentTheme = 'light';
         this.contributors = contributors;
+        this.groupConfigurations = groupConfigurations;
         this.translations = {
             ar: {
                 title: 'فريق العمل',
@@ -110,6 +192,9 @@ class ContributorsController {
 
         localStorage.setItem('preferred-language', lang);
 
+        // Re-render contributors with new language
+        this.renderContributors();
+
         // Animate text change
         gsap.fromTo(['.contributors-title', '.contributors-subtitle'],
             { opacity: 0, y: 20 },
@@ -139,9 +224,24 @@ class ContributorsController {
         const grid = document.getElementById('contributorsGrid');
         grid.innerHTML = '';
 
+        // Track which contributors are already in groups
+        const groupedIndices = new Set();
+        this.groupConfigurations.forEach(group => {
+            group.contributors.forEach(index => groupedIndices.add(index));
+        });
+
+        // Render individual contributor cards for non-grouped contributors
         this.contributors.forEach((contributor, index) => {
-            const card = this.createContributorCard(contributor, index);
-            grid.appendChild(card);
+            if (!groupedIndices.has(index)) {
+                const card = this.createContributorCard(contributor, index);
+                grid.appendChild(card);
+            }
+        });
+
+        // Render group cards
+        this.groupConfigurations.forEach((group, index) => {
+            const groupCard = this.createGroupCard(group, index);
+            grid.appendChild(groupCard);
         });
     }
 
@@ -165,6 +265,50 @@ class ContributorsController {
         // Add hover effects
         card.addEventListener('mouseenter', () => this.handleCardHover(card, true));
         card.addEventListener('mouseleave', () => this.handleCardHover(card, false));
+
+        return card;
+    }
+
+    createGroupCard(group, groupIndex) {
+        const card = document.createElement('div');
+        card.className = 'contributor-card group-card';
+        card.setAttribute('data-group-index', groupIndex);
+
+        const groupMembers = group.contributors.map(index => this.contributors[index]);
+        const title = this.currentLang === 'ar' ? group.titleAr : group.title;
+        const description = this.currentLang === 'ar' ? group.descriptionAr : group.description;
+
+        // Create avatars HTML
+        const avatarsHtml = groupMembers.map(member => {
+            const avatarSrc = member.avatar || 'images/default-avatar.jpg';
+            return `
+                <div class="group-member-avatar">
+                    <img src="${avatarSrc}" alt="${member.name}" 
+                         onerror="this.src='images/default-avatar.jpg'">
+                    <div class="member-tooltip">${member.name}</div>
+                </div>
+            `;
+        }).join('');
+
+        // Create names list
+        const namesList = groupMembers.map(member => member.name).join(' • ');
+
+        card.innerHTML = `
+            <div class="group-header">
+                <h3 class="group-title">${title}</h3>
+                <p class="group-description">${description}</p>
+            </div>
+            <div class="group-avatars">
+                ${avatarsHtml}
+            </div>
+            <div class="group-members">
+                <p class="members-list">${namesList}</p>
+            </div>
+        `;
+
+        // Add hover effects
+        card.addEventListener('mouseenter', () => this.handleGroupCardHover(card, true));
+        card.addEventListener('mouseleave', () => this.handleGroupCardHover(card, false));
 
         return card;
     }
@@ -196,6 +340,47 @@ class ContributorsController {
             });
             gsap.to(overlay, {
                 opacity: 0,
+                duration: 0.3
+            });
+            gsap.to(card, {
+                y: 0,
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                duration: 0.3
+            });
+        }
+    }
+
+    handleGroupCardHover(card, isHovering) {
+        const avatars = card.querySelectorAll('.group-member-avatar');
+        const tooltips = card.querySelectorAll('.member-tooltip');
+        
+        if (isHovering) {
+            gsap.to(avatars, {
+                scale: 1.05,
+                duration: 0.3,
+                ease: "power2.out",
+                stagger: 0.05
+            });
+            gsap.to(tooltips, {
+                opacity: 1,
+                y: 0,
+                duration: 0.3,
+                stagger: 0.05
+            });
+            gsap.to(card, {
+                y: -8,
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.15)',
+                duration: 0.3
+            });
+        } else {
+            gsap.to(avatars, {
+                scale: 1,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+            gsap.to(tooltips, {
+                opacity: 0,
+                y: -10,
                 duration: 0.3
             });
             gsap.to(card, {
