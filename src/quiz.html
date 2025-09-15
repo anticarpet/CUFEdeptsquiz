@@ -8,7 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=genetics" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=genetics" />
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -103,7 +104,7 @@
             margin-bottom: 10px;
         }
 
-        .w-fit{
+        .w-fit {
             width: fit-content;
         }
 
@@ -126,6 +127,7 @@
         .result-card {
             text-align: center;
             padding: 30px;
+            background-position: center center;
         }
 
         .department-icon {
@@ -137,14 +139,15 @@
         .department-name {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #1a237e;
+            color: #64b5f6;
             margin-bottom: 15px;
         }
 
         .department-desc {
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             line-height: 1.6;
             margin-bottom: 25px;
+            color: #FFFFFF;
         }
 
         .start-screen {
@@ -198,7 +201,7 @@
         }
     </style>
     <link href="fontawesome-free-7.0.1-web/css/all.css" rel="stylesheet">
-    
+
 
     <link href="styles/style.css" rel="stylesheet">
 
@@ -272,7 +275,7 @@
     </div>
 
     <div class="container py-5">
-        <div class="quiz-container">
+        <div id="quiz-container" class="quiz-container p-3">
             <!-- <div class="quiz-header">
                 <h1>Engineering Major Quiz</h1>
                 <p>Discover which engineering specialization suits you best</p>
@@ -280,7 +283,7 @@
 
 
 
-            <div id="start-screen" class="start-screen" >
+            <div id="start-screen" class="start-screen" style="opacity: 0;">
                 <div class="engineering-icon">⚙️</div>
                 <h2>Find Your Engineering Path</h2>
                 <p>This quiz will help you discover which engineering major aligns with your interests, skills, and
@@ -288,7 +291,7 @@
                 <button class="btn btn-primary start-btn" onclick="startQuiz()">Begin Quiz</button>
             </div>
 
-                            
+
 
             <form id="quiz-form">
                 <!-- Questions will be dynamically inserted here -->
@@ -301,7 +304,7 @@
                 </div>
             </div>
 
-            <div id="result-container" class="result-card" style="display: none;">
+            <div id="result-container" class="result-card bg-img" style="display: none;">
                 <!-- Results will be displayed here -->
             </div>
         </div>
@@ -316,8 +319,11 @@
 
     <script>
         let lng = localStorage.getItem('preferred-language');
-        function choose(eng, ar){
+        function choose(eng, ar) {
             if (lng == "en") { return eng; } else { return ar; }
+        }
+        function txtdir() {
+            if (lng == "en") { return "ltr"; } else { return "rtl"; }
         }
 
         // testing something
@@ -327,34 +333,34 @@
 
         const quizData = [
             {
-                question: choose("Where would you like to work in the future?","تحب تشتغل ايه قدام؟"),
+                question: choose("Where would you like to work in the future?", "تحب تشتغل ايه قدام؟"),
                 type: "checkbox",
                 name: "workplace",
                 minSelect: 1,
                 maxSelect: 1,
                 options: [
                     {
-                        text: choose("On a mobile site, outdoors","بره في الموقع"),
+                        text: choose("On a mobile site, outdoors", "بره في الموقع"),
                         value: "outdoors",
                         scores: { "PGE": 20, "MET": 20, "MIN": 20, "CHE": 20, "CVE": 20 }
                     },
                     {
-                        text: choose("In an office with designs/plans","في المكتب بصمم"),
+                        text: choose("In an office with designs/plans", "في المكتب بصمم"),
                         value: "office",
                         scores: { "CVE": 20, "ARC": 20 }
                     },
                     {
-                        text: choose("In a factory or workshop","في المصنع او الورشه"),
+                        text: choose("In a factory or workshop", "في المصنع او الورشه"),
                         value: "factory",
                         scores: { "MDP": 20, "MEP": 20, "AER": 20 }
                     },
                     {
-                        text: choose("In a lab with equipment","في المعمل مع ادواتي"),
+                        text: choose("In a lab with equipment", "في المعمل مع ادواتي"),
                         value: "lab",
                         scores: { "EPE": 20, "EEC": 20, "SBE": 20 }
                     },
                     {
-                        text: choose("At home on a laptop","في البيت عاللاب"),
+                        text: choose("At home on a laptop", "في البيت عاللاب"),
                         value: "remote",
                         scores: { "CMP": 20, "EEC": 10, "ARC": 20 }
                     }
@@ -406,264 +412,344 @@
                 ]
             },
             {
-                question: choose("What are your four favourite subjects?","تفضل انهي اربع مواد من دول؟"),
+                question: choose("What are your four favourite subjects?", "تفضل انهي اربع مواد من دول؟"),
                 type: "checkbox",
                 name: "subjects",
                 minSelect: 4,
                 maxSelect: 4,
                 options: [
                     {
-                        text: choose("Math (calculus)","تفاضل و تكامل"),
+                        text: choose("Math (calculus)", "تفاضل و تكامل"),
                         value: "calculus",
                         scores: { "SBE": 5, "CMP": 5, "EEC": 15, "EPE": 15 }
                     },
                     {
-                        text: choose("Math (geometry)","هندسه"),
+                        text: choose("Math (geometry)", "هندسه"),
                         value: "geometry",
                         scores: { "ARC": 20, "CVE": 20 }
                     },
                     {
-                        text: choose("Math (algebra)","جبر"),
+                        text: choose("Math (algebra)", "جبر"),
                         value: "algebra",
                         scores: { "SBE": 15, "CMP": 15, "EEC": 10, "EPE": 10 }
                     },
                     {
-                        text: choose("Physics","فيزياء"),
+                        text: choose("Physics", "فيزياء"),
                         value: "physics",
                         scores: { "AER": 15, "EEC": 15, "EPE": 15, "MEP": 15, "MDP": 20 }
                     },
                     {
-                        text: choose("Mechanics (statics)","استاتيكا"),
+                        text: choose("Mechanics (statics)", "استاتيكا"),
                         value: "statics",
                         scores: { "MEP": 15, "CVE": 20, "MDP": 15, "AER": 20, "ARC": 20 }
                     },
                     {
-                        text: choose("Mechanics (dynamics)","ديناميكا"),
+                        text: choose("Mechanics (dynamics)", "ديناميكا"),
                         value: "dynamics",
                         scores: { "MEP": 15, "AER": 30, "MDP": 15 }
                     },
                     {
-                        text: choose("Chemistry","كيمياء"),
+                        text: choose("Chemistry", "كيمياء"),
                         value: "chemistry",
                         scores: { "PGE": 15, "MET": 15, "MIN": 15, "CHE": 15 }
                     },
                     {
-                        text: choose("Biology","احياء"),
+                        text: choose("Biology", "احياء"),
                         value: "biology",
                         scores: { "SBE": 20 }
                     },
                     {
-                        text: choose("Computer Science","البرمجه"),
+                        text: choose("Computer Science", "البرمجه"),
                         value: "computer_science",
                         scores: { "SBE": 15, "CMP": 20 }
                     }
                 ]
             },
             {
-                question: choose("Let's say you aren't in engineering, what would you major in instead?","لو ماكنتش دخلت هندسه,كنت هتدخل كلية ايه؟"),
+                question: choose("Let's say you aren't in engineering, what would you major in instead?", "لو ماكنتش دخلت هندسه,كنت هتدخل كلية ايه؟"),
                 type: "checkbox",
                 name: "alternate_major",
                 minSelect: 1,
                 maxSelect: 1,
                 options: [
                     {
-                        text: choose("Natural sciences","علوم"),
+                        text: choose("Natural sciences", "علوم"),
                         value: "sciences",
                         scores: { "CHE": 15, "SBE": 15, "MEP": 15 }
                     },
                     {
-                        text: choose("Fine arts / Architecture","فنون جميله / عماره"),
+                        text: choose("Fine arts / Architecture", "فنون جميله / عماره"),
                         value: "arts",
                         scores: { "ARC": 30 }
                     },
                     {
-                        text: choose("Computer science","حاسبات"),
+                        text: choose("Computer science", "حاسبات"),
                         value: "cs",
                         scores: { "EEC": 15, "CMP": 20, "SBE": 15 }
                     },
                     {
-                        text: choose("Urban planning","تخطيط عمراني"),
+                        text: choose("Urban planning", "تخطيط عمراني"),
                         value: "urban_planning",
                         scores: { "CVE": 30, "ARC": 20 }
                     },
                     {
-                        text: choose("I don't know","مش عارف"),
+                        text: choose("I don't know", "مش عارف"),
                         value: "unsure",
                         scores: { "EPE": 15, "MDP": 15, "MEP": 15, "AER": 15 }
                     }
                 ]
             },
             {
-                question: choose("Which two global problems are you most passionate about solving?","ايه اكتر قضيتين عالميه انت متحفز تحلها؟"),
+                question: choose("Which two global problems are you most passionate about solving?", "ايه اكتر قضيتين عالميه انت متحفز تحلها؟"),
                 type: "checkbox",
                 name: "global_problems",
                 minSelect: 2,
                 maxSelect: 2,
                 options: [
                     {
-                        text: choose("Sustainable Energy & Climate Change","تغير المناخ و الطاقه المستدامه"),
+                        text: choose("Sustainable Energy & Climate Change", "تغير المناخ و الطاقه المستدامه"),
                         value: "energy",
                         scores: { "MEP": 30, "CHE": 30, "EPE": 20 }
                     },
                     {
-                        text: choose("Building the Cities of the Future","تعمير مدن المستقبل"),
+                        text: choose("Building the Cities of the Future", "تعمير مدن المستقبل"),
                         value: "cities",
                         scores: { "CVE": 30, "ARC": 30, "CMP": 20, "EEC": 20 }
                     },
                     {
-                        text: choose("Optimizing Production & Manufacturing","تطوير الانتاج و الصناعه"),
+                        text: choose("Optimizing Production & Manufacturing", "تطوير الانتاج و الصناعه"),
                         value: "production",
                         scores: { "MDP": 40, "CMP": 10, "EEC": 10 }
                     },
                     {
-                        text: choose("Connecting the World","الاتصال بالعالم"),
+                        text: choose("Connecting the World", "الاتصال بالعالم"),
                         value: "connectivity",
                         scores: { "EEC": 30, "CMP": 20 }
                     },
                     {
-                        text: choose("Advancing Human Health with Technology","اطورالرعايه الصحيه بالتكنولوجيا"),
+                        text: choose("Advancing Human Health with Technology", "اطورالرعايه الصحيه بالتكنولوجيا"),
                         value: "health",
                         scores: { "SBE": 40, "CMP": 10 }
                     },
                     {
-                        text: choose("Exploring Space and the Universe","استطلع الفضاء"),
+                        text: choose("Exploring Space and the Universe", "استطلع الفضاء"),
                         value: "space",
                         scores: { "AER": 40 }
                     },
                     {
-                        text: choose("Responsible Resource Extraction","استخراج الموارد بطرق امنه"),
+                        text: choose("Responsible Resource Extraction", "استخراج الموارد بطرق امنه"),
                         value: "resources",
                         scores: { "MET": 40, "MIN": 40, "PGE": 40 }
                     }
                 ]
             },
             {
-                question: choose("Talk a bit about yourself.","كلمنا عن نفسك شويتين"),
+                question: choose("Talk a bit about yourself.", "كلمنا عن نفسك شويتين"),
                 type: "checkbox",
                 name: "personal_traits",
                 minSelect: 5,
                 maxSelect: 5,
                 options: [
                     {
-                        text: choose("I'm a visual thinker","انا بفكر بطريقه بصريه"),
+                        text: choose("I'm a visual thinker", "انا بفكر بطريقه بصريه"),
                         value: "visual",
                         scores: { "EPE": 5, "ARC": 15 }
                     },
                     {
-                        text: choose("I'm an abstract thinker","انا بفكر في المجمل"),
+                        text: choose("I'm an abstract thinker", "انا بفكر في المجمل"),
                         value: "abstract",
                         scores: { "EPE": 10, "CMP": 10 }
                     },
                     {
-                        text: choose("I'm a team player","انا بحب اشتغل مع زمايلي"),
+                        text: choose("I'm a team player", "انا بحب اشتغل مع زمايلي"),
                         value: "team_player",
                         scores: { "CVE": 10, "ARC": 10, "CHE": 5, "AER": 10, "MEP": 10 }
                     },
                     {
-                        text: choose("I can adapt","انا اعرف اتأقلم"),
+                        text: choose("I can adapt", "انا اعرف اتأقلم"),
                         value: "adaptable",
                         scores: { "CMP": 10 }
                     },
                     {
-                        text: choose("I like to dive into my favourite field","انا احب اتعمق في مجالي المفضل"),
+                        text: choose("I like to dive into my favourite field", "انا احب اتعمق في مجالي المفضل"),
                         value: "specialized",
                         scores: { "CMP": 10, "EEC": 10, "AER": 10 }
                     },
                     {
-                        text: choose("I like to know a little bit of everything","انا احب اعرف شويه من كل حاجه"),
+                        text: choose("I like to know a little bit of everything", "انا احب اعرف شويه من كل حاجه"),
                         value: "generalist",
                         scores: { "MDP": 10, "SBE": 10, "CVE": 10 }
                     },
                     {
-                        text: choose("I'd like to reinvent the wheel","عايز اعيد اختراع العجله"),
+                        text: choose("I'd like to reinvent the wheel", "عايز اعيد اختراع العجله"),
                         value: "innovator",
                         scores: { "AER": 5, "CHE": 10, "CMP": 5, "EEC": 10, "EPE": 10 }
                     },
                     {
-                        text: choose("I'm empathetic","انا متعاطف"),
+                        text: choose("I'm empathetic", "انا متعاطف"),
                         value: "empathetic",
                         scores: { "SBE": 10, "CVE": 10 }
                     },
                     {
-                        text: choose("I add my touch","عايز ازود التاتش بتاعي"),
+                        text: choose("I add my touch", "عايز ازود التاتش بتاعي"),
                         value: "creative",
                         scores: { "ARC": 15 }
                     },
                     {
-                        text: choose("I work with my hands","انا بحب اشتغل بايدي"),
+                        text: choose("I work with my hands", "انا بحب اشتغل بايدي"),
                         value: "hands_on",
                         scores: { "EPE": 5, "MEP": 10, "MDP": 10 }
                     },
                     {
-                        text: choose("I'm curious","انا انسان فضول"),
+                        text: choose("I'm curious", "انا انسان فضول"),
                         value: "curious",
                         scores: { "MDP": 10, "MEP": 10, "EPE": 10, "EEC": 10 }
                     },
                     {
-                        text: choose("I'm practical","انا عملي "),
+                        text: choose("I'm practical", "انا عملي "),
                         value: "practical",
                         scores: { "CVE": 10, "MDP": 10 }
                     },
                     {
-                        text: choose("I'm precise and detailed","انا بشتغل بدقه و حرص"),
+                        text: choose("I'm precise and detailed", "انا بشتغل بدقه و حرص"),
                         value: "detailed",
                         scores: { "EPE": 10, "ARC": 10, "CHE": 10, "SBE": 10, "AER": 10, "MDP": 10, "MEP": 10 }
                     },
                     {
-                        text: choose("I'm logical","انا بشتغل بمنطق و ترتيب"),
+                        text: choose("I'm logical", "انا بشتغل بمنطق و ترتيب"),
                         value: "logical",
                         scores: { "CMP": 10, "EEC": 5 }
                     },
-                    
+
                 ]
             }
         ];
 
+        /* icons:
+        - cve: <i class="fa-solid fa-helmet-safety"></i>
+        - arc: <i class="fa-solid fa-pen-ruler"></i>
+        - mep: <i class="fa-solid fa-gears"></i>
+        - mdp: <i class="fa-solid fa-screwdriver-wrench"></i>
+        - che: <i class="fa-solid fa-flask-vial"></i>
+        - pet: <i class="fa-solid fa-gas-pump"></i>
+        - min: <i class="fa-solid fa-hill-rockslide"></i>
+        - met: <i class="fa-solid fa-bottle-water"></i>
+        - sbe: <i class="fa-solid fa-dna"></i>
+        - emp: <i class="fa-solid fa-bolt"></i>
+        - aer: <i class="fa-solid fa-plane"></i>
+        - eec: <i class="fa-solid fa-microchip"></i>
+        - cmp: <i class="fa-solid fa-computer"></i>
+        */
+
         // Department information
         const departments = {
-            "PGE": { name: choose("Petroleum and Gas Engineering","هندسة البترول"), 
-            description: choose("You'll work on extracting oil and gas resources efficiently and safely."
-                ,"هتشتغل على استخلاص موارد الزيت و الغاز بكفاءة و أمان " ) },
-            "MET": { name: choose("Metallurgical Engineering","هندسة الفلزات"),
-             description: choose("You'll specialize in metals and materials, their properties, and how they're processed and used." 
-            ,"هتتخصص في المعادن، وخصائصها، وكيفية معالجتها، واستخدامها" ) },
-            "MIN": { name: choose("Mining Engineering","هندسة التعدين"), 
-            description: choose("You'll focus on extracting minerals from the earth in a responsible way." 
-            ,"هتركز على استخراج المعادن من باطن الأرض بطريقة مسؤولة" ) },
-            "CHE": { name: choose("Chemical Engineering","الهندسة الكيميائيه"),
-             description: choose("You'll work with chemical processes to create new materials and products." 
-             ," على العمليات الكيميائية لإنتاج مواد و منتجات جديدة" ) },
-            "CVE": { name: choose("Civil Engineering","الهندسة المدنيه"), 
-            description:choose("You'll design and build infrastructure like roads, bridges, and buildings." 
-            ,"هتمسك بتصميم و بناء البنية التحتية مثل الطرق و الكباري و المباني" ) },
-            "ARC": { name: choose("Architectural Engineering","الهندسة المعماريه"), 
-            description: choose("You'll combine architecture and engineering to create functional buildings."
-            ,"هتجمع بين العمارة و الهندسة لإنشاء مبانٍ وظيفية" ) },
-            "MDP": { name: choose("Mechanical Design & Production","هندسة التصميم الميكانيكي و الانتاج"), 
-            description: choose("You'll design and create mechanical systems and products."
-            ,"هتمسك بتصميم و إنشاء الأنظمة و المنتجات الميكانيكية " ) },
-            "MEP": { name: choose("Mechanical Power Engineering","هندسة القوى الميكانيكيه"), 
-            description: choose("You'll work with energy systems and power generation."
-            ,"هتشتغل على أنظمة الطاقة و توليد القوى" ) },
-            "AER": { name: choose("Aerospace Engineering","هندسة الطيران و الفضاء"),
-             description: choose("You'll design aircraft, spacecraft, and related systems."
-             ," هتصمم الطائرات، والمركبات الفضائية، والأنظمة المرتبطة بها" ) },
-            "EPE": { name: choose("Electrical Power Engineering","هندسة القوى الكهربائيه"), 
-            description: choose("You'll work with electrical systems and power distribution."
-            ,"هتشتغل على أنظمة الكهرباء و توزيع الطاقة " ) },
-            "EEC": { name: choose("Electronics & Electrical Communications","هندسه الالكترونيات و الاتصالات الكهربيه"),
-             description: choose("You'll focus on electronic devices and communication systems."
-             ,"هتركز على الأجهزة الإلكترونية و أنظمة الاتصال" ) },
-            "SBE": { name: choose("Systems & Biomedical Engineering","الهندسة الحيوية الطبية و المنظومات"), 
-            description: choose("You'll apply engineering principles to medical and biological problems." 
-            ,"حتطبق مبادئ المهندسة لحل المشكلات الطبية والبيولوجية " ) },
-            "CMP": { name: choose("Computer Engineering","هندسة الحاسبات"), 
-            description: choose("You'll design and develop computer hardware and software systems." 
-            ,"هتمسك بتصميم وتطوير أنظمة الأجهزة و البرمجيات" ) }
+            "PGE": {
+                name: choose("Petroleum and Gas Engineering", "هندسة البترول"),
+                description: choose("You'll work on extracting oil and gas resources efficiently and safely."
+                    , "هتشتغل على استخلاص موارد الزيت و الغاز بكفاءة و أمان ")
+                , image: "images/dept/PET.jpeg"
+                , icon: `<i class="fa-solid fa-gas-pump"></i>`
+            },
+
+            "MET": {
+                name: choose("Metallurgical Engineering", "هندسة الفلزات"),
+                description: choose("You'll specialize in metals and materials, their properties, and how they're processed and used."
+                    , "هتتخصص في المعادن، وخصائصها، وكيفية معالجتها، واستخدامها")
+                , image: "images/dept/MET.jpeg"
+                , icon: `<i class="fa-solid fa-bottle-water"></i>`
+            },
+
+            "MIN": {
+                name: choose("Mining Engineering", "هندسة التعدين"),
+                description: choose("You'll focus on extracting minerals from the earth in a responsible way."
+                    , "هتركز على استخراج المعادن من باطن الأرض بطريقة مسؤولة")
+                , image: "images/dept/MIN.jpeg"
+                , icon: `<i class="fa-solid fa-hill-rockslide"></i>`
+            },
+
+            "CHE": {
+                name: choose("Chemical Engineering", "الهندسة الكيميائيه"),
+                description: choose("You'll work with chemical processes to create new materials and products."
+                    , " على العمليات الكيميائية لإنتاج مواد و منتجات جديدة")
+                , image: "images/dept/CHE.jpeg"
+                , icon: `<i class="fa-solid fa-flask-vial"></i>`
+            },
+
+            "CVE": {
+                name: choose("Civil Engineering", "الهندسة المدنيه"),
+                description: choose("You'll design and build infrastructure like roads, bridges, and buildings."
+                    , "هتمسك بتصميم و بناء البنية التحتية مثل الطرق و الكباري و المباني")
+                , image: "images/dept/CVE.jpeg"
+                , icon: `<i class="fa-solid fa-helmet-safety"></i>`
+            },
+
+            "ARC": {
+                name: choose("Architectural Engineering", "الهندسة المعماريه"),
+                description: choose("You'll combine architecture and engineering to create functional buildings."
+                    , "هتجمع بين العمارة و الهندسة لإنشاء مبانٍ وظيفية")
+                , image: "images/dept/ARC.jpeg"
+                , icon: `<i class="fa-solid fa-pen-ruler"></i>`
+            },
+
+            "MDP": {
+                name: choose("Mechanical Design & Production", "هندسة التصميم الميكانيكي و الانتاج"),
+                description: choose("You'll design and create mechanical systems and products."
+                    , "هتمسك بتصميم و إنشاء الأنظمة و المنتجات الميكانيكية ")
+                , image: "images/dept/MDP.jpeg"
+                , icon: `<i class="fa-solid fa-screwdriver-wrench"></i>`
+            },
+
+            "MEP": {
+                name: choose("Mechanical Power Engineering", "هندسة القوى الميكانيكيه"),
+                description: choose("You'll work with energy systems and power generation."
+                    , "هتشتغل على أنظمة الطاقة و توليد القوى")
+                , image: "images/dept/MEP.jpeg"
+                , icon: `<i class="fa-solid fa-gears"></i>`
+            },
+
+            "AER": {
+                name: choose("Aerospace Engineering", "هندسة الطيران و الفضاء"),
+                description: choose("You'll design aircraft, spacecraft, and related systems."
+                    , " هتصمم الطائرات، والمركبات الفضائية، والأنظمة المرتبطة بها")
+                , image: "images/dept/.AERjpeg"
+                , icon: `<i class="fa-solid fa-plane"></i>`
+            },
+
+            "EPE": {
+                name: choose("Electrical Power Engineering", "هندسة القوى الكهربائيه"),
+                description: choose("You'll work with electrical systems and power distribution."
+                    , "هتشتغل على أنظمة الكهرباء و توزيع الطاقة ")
+                , image: "images/dept/EPE.jpeg"
+                , icon: `<i class="fa-solid fa-bolt"></i>`
+            },
+
+            "EEC": {
+                name: choose("Electronics & Electrical Communications", "هندسه الالكترونيات و الاتصالات الكهربيه"),
+                description: choose("You'll focus on electronic devices and communication systems."
+                    , "هتركز على الأجهزة الإلكترونية و أنظمة الاتصال")
+                , image: "images/dept/EEC.jpeg"
+                , icon: `<i class="fa-solid fa-microchip"></i>`
+            },
+
+            "SBE": {
+                name: choose("Systems & Biomedical Engineering", "الهندسة الحيوية الطبية و المنظومات"),
+                description: choose("You'll apply engineering principles to medical and biological problems."
+                    , "حتطبق مبادئ المهندسة لحل المشكلات الطبية والبيولوجية ")
+                , image: "images/dept/SBE.jpeg"
+                , icon: `<i class="fa-solid fa-dna"></i>`
+            },
+
+            "CMP": {
+                name: choose("Computer Engineering", "هندسة الحاسبات"),
+                description: choose("You'll design and develop computer hardware and software systems."
+                    , "هتمسك بتصميم وتطوير أنظمة الأجهزة و البرمجيات")
+                , image: "images/dept/CMP.jpeg"
+                , icon: `<i class="fa-solid fa-computer"></i>`
+            }
         };
 
         // Global variables
-        let currentQuestion = 0;
+        let currentQuestion = 0;//TESTING
         let userScores = {};
         let userAnswers = {};
 
@@ -730,15 +816,15 @@
             `;
 
             if (index > 0) {
-                html += `<button type="button" class="btn btn-secondary rounded-5 me-auto" onclick="navigateTo(${index - 1})">Previous</button>`;
+                html += `<button type="button" class="btn btn-secondary rounded-5 me-auto" onclick="navigateTo(${index - 1})">${choose("Previous", "ارجع")}</button>`;
             } else {
                 html += `<div></div>`;
             }
 
             if (index < quizData.length - 1) {
-                html += `<button type="button" class="btn btn-primary ms-auto" onclick="navigateTo(${index + 1})" style="width: fit-content;">Next</button>`;
+                html += `<button type="button" class="btn btn-primary ms-auto" onclick="navigateTo(${index + 1})" style="width: fit-content;">${choose("Next", "التالي")}</button>`;
             } else {
-                html += `<button type="button" class="btn btn-success" onclick="calculateResult()">See Results</button>`;
+                html += `<button type="button" class="btn btn-success" onclick="calculateResult()">${choose("Finish", "انتهاء")}</button>`;
             }
 
             html += `
@@ -796,7 +882,7 @@
             // Validate if minimum options are selected
             const question = quizData[currentQuestion];
             if (userAnswers[currentQuestion].length < question.minSelect) {
-                alert(`Please select at least ${question.minSelect} option(s).`);
+                alert(choose(`Please select at least ${question.minSelect} option(s).`,`اختار من الاختيارات على الأقل ${question.minSelect}`));
                 return;
             }
 
@@ -877,13 +963,18 @@
                     document.getElementById("quiz-form").style.display = "none";
                     document.getElementById("result-container").style.display = "block";
                     document.getElementById("result-container").style.opacity = 1;
+                    document.getElementById("quiz-container").style.background = `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0,0,0,0.5 )), url('${dept.image}') no-repeat center center / cover`;
 
                     document.getElementById("result-container").innerHTML = `
-                        <div class="department-icon">⚙️</div>
-                        <h2 class="department-name">${dept.name}</h2>
+                        
+                        <h2 class="department-name text-glow
+                        " style="direction: ${txtdir()}">${dept.name} ${dept.icon}</h2>
                         <p class="department-desc">${dept.description}</p>
-                        <p>Based on your answers, this engineering specialization seems to be the best fit for your interests and skills.</p>
-                        <button class="btn btn-primary mt-3" onclick="restartQuiz()">Take Again</button>
+                        <button class="btn btn-primary mt-3 mb-3" onclick="restartQuiz()">${choose("Take Again", "جرب تاني")}</button>
+                ${choose("<p style='color: #FFFFFF'>this result is based on your answers to this form. <b> it may not be accurate and it does not influence, at all, the actual department selection.</b></p>",
+                        "<p style='color: #FFFFFF'>تم تحديد النتيجه وفقاً لاختياراتك في هذا النموذج <b>و قد لا تكون دقيقه و النتيجه لا تؤثر اطلاقاً على نتيجة التنسيق الحقيقي</b></p>"
+                    )}
+                        
                     `;
 
                     gsap.from("#result-container", { opacity: 0, y: 50, duration: 0.8 });
@@ -903,10 +994,12 @@
                     initializeScores();
 
                     document.getElementById("result-container").style.display = "none";
+                    document.getElementById("quiz-container").style.background = ``;
                     document.getElementById("quiz-form").style.opacity = 1; //
-                    document.getElementById("start-screen").style.display = "block";
-                    document.getElementById("start-screen").style.opacity = 1; //
+                    //document.getElementById("start-screen").style.display = "block";
+                    //document.getElementById("start-screen").style.opacity = 1; //
                     gsap.from("#start-screen", { opacity: 0, duration: 0.8 });
+                    startQuiz();
                 }
             });
         }
@@ -916,30 +1009,11 @@
             document.getElementById("quiz-form").style.display = "none";
             initializeScores();
         };
-        startQuiz();  
+        startQuiz();
+        //showResult("CMP");
         //navigateTo(1);
 
-        /* icons:
-        - cve: <i class="fa-solid fa-helmet-safety"></i>
-        - arc: <i class="fa-solid fa-pen-ruler"></i>
-        - mep: <i class="fa-solid fa-gears"></i>
-        - mdp: <i class="fa-solid fa-screwdriver-wrench"></i>
-        - che: <i class="fa-solid fa-flask-vial"></i>
-        - pet: <i class="fa-solid fa-gas-pump"></i>
-        - min: <i class="fa-solid fa-hill-rockslide"></i>
-        - met: <i class="fa-solid fa-bottle-water"></i>
-        - sbe: <i class="fa-solid fa-dna"></i>
-        - emp: <i class="fa-solid fa-bolt"></i>
-        - aer: <i class="fa-solid fa-plane"></i>
-        - eec: <i class="fa-solid fa-microchip"></i>
-        - cmp: <i class="fa-solid fa-computer"></i>
 
-
-
-
-
-
-        */
 
     </script>
 </body>

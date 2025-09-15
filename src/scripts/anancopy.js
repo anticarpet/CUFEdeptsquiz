@@ -3,7 +3,7 @@
 class enar{
     constructor(){
         this.init();
-        lang = localStorage.getItem('preferred-language');
+        var lang = localStorage.getItem('preferred-language');
     }
 
     init(){
@@ -27,6 +27,11 @@ class enar{
         if(lng="en"){return eng;}else{return ar;}
 
 
+    }
+
+    txtdir(){
+        lng = this.lang;
+        if(lng="en"){return "ltr";}else{return "rtl";}
     }
 }
 

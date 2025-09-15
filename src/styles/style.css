@@ -448,3 +448,13 @@ body {
     opacity: 0.7;
     pointer-events: none;
 }
+
+
+/*the stuff I added*/
+.text-glow{
+    text-shadow: 0 0 10px #000000;
+    
+    
+
+}
+
