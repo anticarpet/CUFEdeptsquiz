@@ -21,23 +21,23 @@ const contributors = shuffle([
     },
     {
         name: "<div class='text-stroke' style='filter: var(--invert); color:#FFF;  z-index: 4;'>Sajid Elmanakhly</div>",
-        role: '<div class="text-stroke" style="filter: var(--invert); direction: ltr; color:#FFF; width: fit-content; margin: auto;" >Lead webdev <img class="icon" style=" filter: none; z-index:-155; height: 4em;" src="images/peoples/Sajid2.svg" alt="no sign :("></img>',
+        role: '<div class="text-stroke" style="position: relative; filter: var(--invert); direction: ltr; color:#FFF; width: fit-content; margin: auto;" >Lead webdev <img class="icon" style="position: absolute;right: -4.5em; top: -1.4em; filter: none; z-index:-155; height: 4em;" src="images/peoples/Sajid2.svg" alt="no sign :("></img>',
         avatar: "images/peoples/Sajid.jpeg"
     },
     {
         name: "Eslam Ahmed",
-        role: '🔥Lead designer🔥',
+        role: '🔥graphics ( Lead )🔥',
         avatar: "images/peoples/eslam.jpeg"
         
     },
     {
         name: "🌷 Menna Khaled",
-        role: 'Lead designer',
+        role: 'graphics ( Lead )',
         avatar: null
     },]).concat(shuffle([
     {
         name: "Abdel-Moe'z Sayed",
-        role: "graphic designer",
+        role: "graphics & organizer",
         avatar: "images/peoples/abmoez.jpeg"
     },
     {
@@ -47,67 +47,67 @@ const contributors = shuffle([
     },
     {
         name: "Ahmed Hani",
-        role: 'graphic designer',
+        role: 'graphics',
         avatar: "images/peoples/hani.jpeg"
     },
     {
         name: "Mohammad Fahd",
-        role: "graphic designer",
+        role: "content",
         avatar: "images/peoples/fahd.jpeg"
     },
     {
         name: "Shahd Yasser Abdel-Hady",
-        role: "graphic designer, content creator, sticker squad",
+        role: "graphics & content",
         avatar: "images/peoples/shahd.jpeg"
     },
     {
         name: "Yahya Ismail",
-        role: "graphic designer, content",
+        role: "graphics & content",
         avatar: "images/peoples/yahya.jpeg"
     },
     {
         name: "Shaimaa Omar Zidan",
-        role: "graphic designer, content creator",
+        role: "graphics & content",
         avatar: "images/peoples/shaimaa.jpeg"
     },
     {
         name: "Ahmed Atta",
-        role: "Content creator, organizer",
+        role: "content & organizer",
         avatar: "images/peoples/atta.jpeg"
     },
     {
         name: "Habiba Ayman",
-        role: "graphic designer",
+        role: "graphics",
         avatar: "images/peoples/habiba.jpeg"
     },
     {
         name: "Ahmed Elewa",
-        role: "graphic designer",
+        role: "graphics",
         avatar: "images/peoples/elewa.jpeg"
     },
     {
         name: "Moroj Mostafa",
-        role: "Content Creator",
+        role: "content",
         avatar: null
     },
     {
         name: "Marwan Khaled",
-        role: "graphic designer",
+        role: "graphics",
         avatar: "images/peoples/marwan.jpeg"
     },
     {
         name: "Esraa Esmat",
-        role: "Data provider, graphic designer",
+        role: "graphics & content",
         avatar: "images/peoples/esraa.jpeg"
     },
     {
         name: "Haneen Sayed",
-        role: "Editor",
+        role: "content",
         avatar: null
     },
     {
         name: "Ahmed Abd Alazez",
-        role: "creative Content creator",
+        role: "content",
         avatar: "images/peoples/abazez.jpeg"
     },]));
 
