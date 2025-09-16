@@ -1,10 +1,10 @@
 // Contributors data - Add your team members here
 function shuffle(arr) {
-  	for (let i = arr.length - 1; i > 0; i--) {
-    	const j = Math.floor(Math.random() * (i + 1));
-    	[arr[i], arr[j]] = [arr[j], arr[i]];
-  	}
-  	return arr;
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
 }
 
 
@@ -20,97 +20,98 @@ const contributors = [
         avatar: null // Will use default avatar
     },
     {
-        name: "<div class='text-stroke' style='filter: var(--invert); color:#FFF;  z-index: 4;'>Sajid Elmanakhly</div>",
-        role: '<div class="text-stroke" style="position: relative; filter: var(--invert); direction: ltr; color:#FFF; width: fit-content; margin: auto;" >Lead webdev <img class="icon" style="position: absolute;right: -4.5em; top: -1.4em; filter: none; z-index:-155; height: 4em;" src="images/peoples/Sajid2.svg" alt="no sign :("></img>',
-        avatar: "images/peoples/Sajid.jpeg"
+        name: "Ahmed Anan",
+        role: 'Lead Web-dev, Content, Graphic design',
+        avatar: "images/peoples/anan.jpeg"
     },
     {
-        name: "Ahmed Anan",
-        role: 'Lead Webdev',
-        avatar: "images/peoples/anan.jpeg"
+        name: "<div class='text-stroke' style=' filter: var(--invert); color:#FFF;  z-index: 4;'>Sajid Elmanakhly</div>",
+        role: `<div class="text-stroke" style="position: relative; filter: var(--invert); direction: ltr; color:#FFF; width: fit-content; margin: auto;" >
+Lead Web-dev, Graphic design<img class="icon" style="position: absolute;right: -3.2em; bottom: -4em; filter: none; z-index:-155; height: 6em;" src="images/peoples/Sajid2.svg" alt="no sign :("></img>`,
+        avatar: "images/peoples/Sajid.jpeg"
     },
 ].concat(shuffle([
     {
         name: "Eslam Ahmed",
-        role: '🔥graphics ( Lead )🔥',
+        role: '🔥Lead Graphic design, Content, Quote Curation🔥',
         avatar: "images/peoples/eslam.jpeg"
-        
+
     },
     {
         name: "🌷 Menna Khaled",
-        role: 'graphics ( Lead )',
-        avatar: null
+        role: 'Lead Mini-merch, Graphic design, Content, Quote Curation ',
+        avatar: "images/peoples/menna.jpeg"
     },]).concat(shuffle([
-    {
-        name: "Abdel-Moe'z Sayed",
-        role: "graphics & organizer",
-        avatar: "images/peoples/abmoez.jpeg"
-    },
-    {
-        name: "Ahmed Hani",
-        role: 'graphics',
-        avatar: "images/peoples/hani.jpeg"
-    },
-    {
-        name: "Mohammad Fahd",
-        role: "content",
-        avatar: "images/peoples/fahd.jpeg"
-    },
-    {
-        name: "Shahd Yasser Abdel-Hady",
-        role: "graphics & content",
-        avatar: "images/peoples/shahd.jpeg"
-    },
-    {
-        name: "Yahya Ismail",
-        role: "graphics & content",
-        avatar: "images/peoples/yahya.jpeg"
-    },
-    {
-        name: "Shaimaa Omar Zidan",
-        role: "graphics & content",
-        avatar: "images/peoples/shaimaa.jpeg"
-    },
-    {
-        name: "Ahmed Atta",
-        role: "content & organizer",
-        avatar: "images/peoples/atta.jpeg"
-    },
-    {
-        name: "Habiba Ayman",
-        role: "graphics",
-        avatar: "images/peoples/habiba.jpeg"
-    },
-    {
-        name: "Ahmed Elewa",
-        role: "graphics",
-        avatar: "images/peoples/elewa.jpeg"
-    },
-    {
-        name: "Moroj Mostafa",
-        role: "content",
-        avatar: null
-    },
-    {
-        name: "Marwan Khaled",
-        role: "graphics",
-        avatar: "images/peoples/marwan.jpeg"
-    },
-    {
-        name: "Esraa Esmat",
-        role: "graphics & content",
-        avatar: "images/peoples/esraa.jpeg"
-    },
-    {
-        name: "Haneen Sayed",
-        role: "content",
-        avatar: "images/peoples/haneen.jpeg"
-    },
-    {
-        name: "Ahmed Abd Alazez",
-        role: "content",
-        avatar: "images/peoples/abazez.jpeg"
-    },])));
+        {
+            name: "Abdel-Moe'z Sayed",
+            role: "Content, Graphic design, Quote Curation ",
+            avatar: "images/peoples/abmoez.jpeg"
+        },
+        {
+            name: "Ahmed Hani",
+            role: 'Lead Proof-leader, Graphic design, Content',
+            avatar: "images/peoples/hani.jpeg"
+        },
+        {
+            name: "Mohammad Fahd",
+            role: "Lead Content, Quote Curation, Graphic design",
+            avatar: "images/peoples/fahd.jpeg"
+        },
+        {
+            name: "Shahd Yasser Abdel-Hady",
+            role: "Lead mini-merch, Graphic design, Content",
+            avatar: "images/peoples/shahd.jpeg"
+        },
+        {
+            name: "Yahya Ismail",
+            role: "Lead proof-reader, Quote Curation, Graphic design ",
+            avatar: "images/peoples/yahya.jpeg"
+        },
+        {
+            name: "Shaimaa Omar Zidan",
+            role: "Mini-merch, Content, Graphic design ",
+            avatar: "images/peoples/shaimaa.jpeg"
+        },
+        {
+            name: "Ahmed Atta",
+            role: "Lead Content, Graphic design, Quote Curation ",
+            avatar: "images/peoples/atta.jpeg"
+        },
+        {
+            name: "Habiba Ayman",
+            role: "Lead mini-merch, Proof reading, Graphic design, Content",
+            avatar: "images/peoples/habiba.jpeg"
+        },
+        {
+            name: "Ahmed Elewa",
+            role: "Lead Graphic design, Quote Curation, Content, Mini-merch",
+            avatar: "images/peoples/elewa.jpeg"
+        },
+        {
+            name: "Moroj Mostafa",
+            role: "Content",
+            avatar: null
+        },
+        {
+            name: "Marwan Khaled",
+            role: "Lead Graphic design,Quote Curation, Content, Mini-merch ",
+            avatar: "images/peoples/marwan.jpeg"
+        },
+        {
+            name: "Esraa Esmat",
+            role: "Proof reading, Content, Quote Curation",
+            avatar: "images/peoples/esraa.jpeg"
+        },
+        {
+            name: "Haneen Sayed",
+            role: "Lead Content, Quote Curation, Graphic design",
+            avatar: "images/peoples/haneen.jpeg"
+        },
+        {
+            name: "Ahmed Abd Alazez",
+            role: "Lead content, Quote Curation",
+            avatar: "images/peoples/abazez.jpeg"
+        },])));
 
 // Group configurations - Define which contributors should be grouped together
 const groupConfigurations = [
@@ -258,7 +259,7 @@ class ContributorsController {
 
     createContributorCard(contributor, index) {
         const card = document.createElement('div');
-        card.className = 'contributor-card';
+        card.className = 'contributor-card absolute';//testing
         card.setAttribute('data-index', index);
 
         const avatarSrc = contributor.avatar || 'images/default-avatar.jpg';
@@ -327,7 +328,7 @@ class ContributorsController {
     handleCardHover(card, isHovering) {
         const avatar = card.querySelector('.contributor-avatar-wrapper');
         const overlay = card.querySelector('.avatar-overlay');
-        
+
         if (isHovering) {
             gsap.to(avatar, {
                 scale: 1.05,
@@ -364,7 +365,7 @@ class ContributorsController {
     handleGroupCardHover(card, isHovering) {
         const avatars = card.querySelectorAll('.group-member-avatar');
         const tooltips = card.querySelectorAll('.member-tooltip');
-        
+
         if (isHovering) {
             gsap.to(avatars, {
                 scale: 1.05,
@@ -381,7 +382,8 @@ class ContributorsController {
             gsap.to(card, {
                 y: -8,
                 boxShadow: '0 20px 50px rgba(0, 0, 0, 0.15)',
-                duration: 0.3
+                duration: 0.3,
+                
             });
         } else {
             gsap.to(avatars, {
@@ -432,14 +434,14 @@ class ContributorsController {
     initAnimations() {
         // Set initial state for contributor cards to ensure visibility
         gsap.set('.contributor-card', { opacity: 1, visibility: 'visible' });
-        
+
         // Initial page load animation
         gsap.timeline()
-            .from('.header', { 
-                y: -100, 
-                opacity: 0, 
-                duration: 1, 
-                ease: "power3.out" 
+            .from('.header', {
+                y: -100,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
             })
             .from('.bg-graphic', {
                 scale: 0,
@@ -466,7 +468,7 @@ class ContributorsController {
                 duration: 0.6,
                 stagger: 0.1,
                 ease: "back.out(1.7)",
-                onComplete: function() {
+                onComplete: function () {
                     // Ensure cards are fully visible after animation
                     gsap.set('.contributor-card', { opacity: 1, scale: 1 });
                 }
@@ -494,7 +496,7 @@ class ContributorsController {
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const parallaxElements = document.querySelectorAll('.bg-graphic');
-            
+
             parallaxElements.forEach((el, index) => {
                 const speed = 0.5 + (index * 0.1);
                 el.style.transform = `translateY(${scrolled * speed}px)`;

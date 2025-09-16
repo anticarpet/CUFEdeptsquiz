@@ -216,6 +216,7 @@
     object-fit: cover;
     background: var(--bg-secondary);
     border: 3px solid var(--bg-secondary);
+    filter: blur(0.2px);
 }
 
 .avatar-overlay {
