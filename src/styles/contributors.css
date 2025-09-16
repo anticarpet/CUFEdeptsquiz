@@ -206,6 +206,7 @@
     overflow: hidden;
     background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
     padding: 3px;
+    z-index: 4;
 }
 
 .contributor-avatar {
@@ -236,6 +237,7 @@
     color: var(--text-primary);
     margin-bottom: 0.5rem;
     transition: color 0.3s ease;
+    z-index: 4;
 }
 
 .contributor-role {
@@ -481,4 +483,9 @@ html {
 .group-card + .contributor-card,
 .contributor-card + .group-card {
     margin-top: 0;
+}
+
+.icon{
+    display: inline-block;
+    overflow: hidden;
 }

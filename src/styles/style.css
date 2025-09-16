@@ -11,6 +11,7 @@
     --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
     --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --invert: invert(0%);
 }
 
 [data-theme="dark"] {
@@ -23,6 +24,7 @@
     --border-color: #333333;
     --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.3);
     --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.4);
+    --invert: invert(100%);
 }
 
 * {
@@ -453,8 +455,12 @@ body {
 /*the stuff I added*/
 .text-glow{
     text-shadow: 0 0 10px #000000;
-    
-    
-
 }
+
+.text-stroke{
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+      
+}
+
+
 

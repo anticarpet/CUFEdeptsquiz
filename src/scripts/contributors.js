@@ -16,37 +16,38 @@ shuffle(arr);
 const contributors = shuffle([
     {
         name: "Zeina Ali",
-        role: 'Team Leader',
+        role: '✨Team Leader✨',
         avatar: null // Will use default avatar
     },
     {
-        name: "Sajid Elmanakhly",
-        role: '✨Lead web developer✨',
+        name: "<div class='text-stroke' style='filter: var(--invert); color:#FFF;  z-index: 4;'>Sajid Elmanakhly</div>",
+        role: '<div class="text-stroke" style="filter: var(--invert); direction: ltr; color:#FFF; width: fit-content; margin: auto;" >Lead webdev <img class="icon" style=" filter: none; z-index:-155; height: 4em;" src="images/peoples/Sajid2.svg" alt="no sign :("></img>',
         avatar: "images/peoples/Sajid.jpeg"
     },
     {
         name: "Eslam Ahmed",
-        role: 'Lead designer',
+        role: '🔥Lead designer🔥',
         avatar: "images/peoples/eslam.jpeg"
+        
     },
     {
+        name: "🌷 Menna Khaled",
+        role: 'Lead designer',
+        avatar: null
+    },]).concat(shuffle([
+    {
         name: "Abdel-Moe'z Sayed",
-        role: "Lead developer",
+        role: "graphic designer",
         avatar: "images/peoples/abmoez.jpeg"
     },
     {
         name: "Ahmed Anan",
-        role: 'Web Developer',
-        avatar: null
-    },
-    {
-        name: "Menna Khaled",
-        role: 'Sticker Squad',
+        role: 'Webdev',
         avatar: null
     },
     {
         name: "Ahmed Hani",
-        role: 'Card Creator',
+        role: 'graphic designer',
         avatar: "images/peoples/hani.jpeg"
     },
     {
@@ -56,7 +57,7 @@ const contributors = shuffle([
     },
     {
         name: "Shahd Yasser Abdel-Hady",
-        role: "graphic designer, content creator, marketing",
+        role: "graphic designer, content creator, sticker squad",
         avatar: "images/peoples/shahd.jpeg"
     },
     {
@@ -76,12 +77,12 @@ const contributors = shuffle([
     },
     {
         name: "Habiba Ayman",
-        role: "designer",
+        role: "graphic designer",
         avatar: "images/peoples/habiba.jpeg"
     },
     {
         name: "Ahmed Elewa",
-        role: "designer",
+        role: "graphic designer",
         avatar: "images/peoples/elewa.jpeg"
     },
     {
@@ -91,7 +92,7 @@ const contributors = shuffle([
     },
     {
         name: "Marwan Khaled",
-        role: "designer",
+        role: "graphic designer",
         avatar: "images/peoples/marwan.jpeg"
     },
     {
@@ -104,7 +105,11 @@ const contributors = shuffle([
         role: "Editor",
         avatar: null
     },
-]);
+    {
+        name: "Ahmed Abd Alazez",
+        role: "creative Content creator",
+        avatar: "images/peoples/abazez.jpeg"
+    },]));
 
 // Group configurations - Define which contributors should be grouped together
 const groupConfigurations = [
