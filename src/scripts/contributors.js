@@ -13,16 +13,16 @@ function shuffle(arr) {
 // Used like so
 let arr = [2, 11, 37, 42];
 shuffle(arr);
-const contributors = [
+const contributors = shuffle([
     {
         name: "Zeina Ali",
         role: '✨Team Leader✨',
         avatar: null // Will use default avatar
     },
     {
-        name: "Ahmed Anan",
-        role: 'Lead Web-dev, Content, Graphic design',
-        avatar: "images/peoples/anan.jpeg"
+        name: "🌷 Menna Khaled",
+        role: 'Lead Mini-merch, Graphic design, Content, Quote Curation ',
+        avatar: "images/peoples/menna.jpeg"
     },
     {
         name: "<div class='text-stroke' style=' filter: var(--invert); color:#FFF;  z-index: 4;'>Sajid Elmanakhly</div>",
@@ -30,22 +30,21 @@ const contributors = [
 Lead Web-dev, Graphic design<img class="icon" style="position: absolute;right: -3.2em; bottom: -4em; filter: none; z-index:-155; height: 6em;" src="images/peoples/Sajid2.svg" alt="no sign :("></img>`,
         avatar: "images/peoples/Sajid.jpeg"
     },
-].concat(shuffle([
     {
-        name: "Eslam Ahmed",
-        role: '🔥Lead Graphic design, Content, Quote Curation🔥',
-        avatar: "images/peoples/eslam.jpeg"
-
+        name: "Ahmed Anan",
+        role: 'Lead Web-dev, Content, Graphic design',
+        avatar: "images/peoples/anan.jpeg"
     },
-    {
-        name: "🌷 Menna Khaled",
-        role: 'Lead Mini-merch, Graphic design, Content, Quote Curation ',
-        avatar: "images/peoples/menna.jpeg"
-    },]).concat(shuffle([
         {
             name: "Abdel-Moe'z Sayed",
-            role: "Content, Graphic design, Quote Curation ",
+            role: "Lead oragnizer, Content, Graphic design, Quote Curation ",
             avatar: "images/peoples/abmoez.jpeg"
+        },
+        {
+        name: "🔥 Eslam Ahmed 🔥",
+        role: 'Lead Graphic design, Content, Quote Curation',
+        avatar: "images/peoples/eslam.jpeg"
+
         },
         {
             name: "Ahmed Hani",
@@ -111,7 +110,7 @@ Lead Web-dev, Graphic design<img class="icon" style="position: absolute;right: -
             name: "Ahmed Abd Alazez",
             role: "Lead content, Quote Curation",
             avatar: "images/peoples/abazez.jpeg"
-        },])));
+        },]);
 
 // Group configurations - Define which contributors should be grouped together
 const groupConfigurations = [
