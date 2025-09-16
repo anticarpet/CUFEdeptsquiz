@@ -13,7 +13,7 @@ function shuffle(arr) {
 // Used like so
 let arr = [2, 11, 37, 42];
 shuffle(arr);
-const contributors = shuffle([
+const contributors = [
     {
         name: "Zeina Ali",
         role: '✨Team Leader✨',
@@ -24,6 +24,12 @@ const contributors = shuffle([
         role: '<div class="text-stroke" style="position: relative; filter: var(--invert); direction: ltr; color:#FFF; width: fit-content; margin: auto;" >Lead webdev <img class="icon" style="position: absolute;right: -4.5em; top: -1.4em; filter: none; z-index:-155; height: 4em;" src="images/peoples/Sajid2.svg" alt="no sign :("></img>',
         avatar: "images/peoples/Sajid.jpeg"
     },
+    {
+        name: "Ahmed Anan",
+        role: 'Lead Webdev',
+        avatar: "images/peoples/anan.jpeg"
+    },
+].concat(shuffle([
     {
         name: "Eslam Ahmed",
         role: '🔥graphics ( Lead )🔥',
@@ -39,11 +45,6 @@ const contributors = shuffle([
         name: "Abdel-Moe'z Sayed",
         role: "graphics & organizer",
         avatar: "images/peoples/abmoez.jpeg"
-    },
-    {
-        name: "Ahmed Anan",
-        role: 'Webdev',
-        avatar: null
     },
     {
         name: "Ahmed Hani",
@@ -103,13 +104,13 @@ const contributors = shuffle([
     {
         name: "Haneen Sayed",
         role: "content",
-        avatar: null
+        avatar: "images/peoples/haneen.jpeg"
     },
     {
         name: "Ahmed Abd Alazez",
         role: "content",
         avatar: "images/peoples/abazez.jpeg"
-    },]));
+    },])));
 
 // Group configurations - Define which contributors should be grouped together
 const groupConfigurations = [
