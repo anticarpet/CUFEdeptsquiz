@@ -16,13 +16,13 @@ shuffle(arr);
 const contributors = [
     {
         name: "✨Zeina Ali✨",
-        role: 'Team Leader, Graphics',
-        avatar: "images/peoples/zeina.jpg" // Will use default avatar
+        role: 'Project Lead',
+        avatar: "images/peoples/zeina.jpeg" // Will use default avatar
     },
     {
         name: "<div class='text-stroke' style=' filter: var(--invert); color:#FFF;  z-index: 4;'>Sajid Elmanakhly</div>",
         role: `<div class="text-stroke" style="position: relative; filter: var(--invert); direction: ltr; color:#FFF; width: fit-content; margin: auto;" >
-Lead Web-dev, Graphic design<img class="icon" style="position: absolute;right: -3.2em; bottom: -4em; filter: none; z-index:-155; height: 6em;" src="images/peoples/Sajid2.svg" alt="no sign :("></img>`,
+Lead Web-dev & graphics<img class="icon" style="position: absolute;right: -3.2em; bottom: -4em; filter: none; z-index:-155; height: 6em;" src="images/peoples/Sajid2.svg" alt="no sign :("></img>`,
         avatar: "images/peoples/Sajid.jpeg"
     },].concat(shuffle([
     {
@@ -89,7 +89,7 @@ Lead Web-dev, Graphic design<img class="icon" style="position: absolute;right: -
         {
             name: "Moroj Mostafa",
             role: "Content, Quote Curation",
-            avatar: null
+            avatar: "images/peoples/moroj.jpeg"
         },
         {
             name: "Marwan Khaled",
