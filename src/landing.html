@@ -112,8 +112,16 @@
             <span id="btnText">يلا نبدأ</span>
             <span class="material-icons">arrow_back</span>
           </button>
-          <button onclick="contrib()" class="btn-primary pulse-animation m-3" style="padding: 0.25rem 0.5rem; display: none;" id="contribBtn">
-            <span id="btnText">خد بصه</span>
+          <button onclick="redir('https://www.canva.com/design/DAGy9lim2BA/EftzMFboO_XEwdWWvrPQtQ/view?utm_content=DAGy9lim2BA&utm_campaign=designshare&utm_medium=link&utm_source=viewer#4')" class="btn-secondary pulse-animation m-3" style="padding: 0.25rem 0.5rem; display: none;" id="cataBtn">
+            <span id="btnText">الكاتالوج</span>
+            <span class="material-icons">arrow_back</span>
+          </button>
+          <button onclick="redir('https://drive.google.com/drive/folders/1mAOp29Kjv11XrOsY_IKee3rV2D7Rhgdk')" class="btn-secondary pulse-animation m-3" style="padding: 0.25rem 0.5rem; display: none;" id="drivebtn">
+            <span id="btnText">الدرايف</span>
+            <span class="material-icons">arrow_back</span>
+          </button>
+          <button onclick="contrib()" class="btn-secondary pulse-animation m-3" style="padding: 0.25rem 0.5rem; display: none;" id="contribBtn">
+            <span id="btnText">credits</span>
             <span class="material-icons">arrow_back</span>
           </button>
 
@@ -133,6 +141,7 @@
 </body>
 <script>function strt() { window.location.href = 'quiz.html' }</script>
 <script>function contrib() { window.location.href = 'contributors.html' }</script>
+<script>function redir(str) { window.location.href = str}</script>
 <script src="scripts/landing.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 

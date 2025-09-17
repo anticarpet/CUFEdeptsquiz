@@ -246,6 +246,32 @@ body {
     outline: none;
 }
 
+.btn-secondary {
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    border: none;
+    border-radius: 50px;
+    padding: 0 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    transition: var(--transition);
+    box-shadow: var(--shadow-medium);
+    min-height: 60px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+    visibility: visible;
+    opacity: 1;
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+
 .btn-primary::before {
     content: '';
     position: absolute;
@@ -394,7 +420,7 @@ body {
         font-size: 1.25rem;
     }
     .btn-secondary {
-        width: 100%;
+        width: 50%;
         max-width: 320px;
         padding: 0.25rem 0.5rem;
         font-size: 1rem;

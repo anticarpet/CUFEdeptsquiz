@@ -15,20 +15,20 @@ let arr = [2, 11, 37, 42];
 shuffle(arr);
 const contributors = [
     {
-        name: "Zeina Ali",
-        role: '✨Team Leader, Graphics✨',
+        name: "✨Zeina Ali✨",
+        role: 'Team Leader, Graphics',
         avatar: "images/peoples/zeina.jpg" // Will use default avatar
-    },].concat(shuffle([
-    {
-        name: "🌷 Menna Khaled",
-        role: 'Lead Mini-merch, Graphic design, Content, Quote Curation ',
-        avatar: "images/peoples/menna.jpeg"
     },
     {
         name: "<div class='text-stroke' style=' filter: var(--invert); color:#FFF;  z-index: 4;'>Sajid Elmanakhly</div>",
         role: `<div class="text-stroke" style="position: relative; filter: var(--invert); direction: ltr; color:#FFF; width: fit-content; margin: auto;" >
 Lead Web-dev, Graphic design<img class="icon" style="position: absolute;right: -3.2em; bottom: -4em; filter: none; z-index:-155; height: 6em;" src="images/peoples/Sajid2.svg" alt="no sign :("></img>`,
         avatar: "images/peoples/Sajid.jpeg"
+    },].concat(shuffle([
+    {
+        name: "🌷 Menna Khaled",
+        role: 'Lead Mini-merch, Graphic design, Content, Quote Curation ',
+        avatar: "images/peoples/menna.jpeg"
     },
     {
         name: "Ahmed Anan",
@@ -98,7 +98,7 @@ Lead Web-dev, Graphic design<img class="icon" style="position: absolute;right: -
         },
         {
             name: "Esraa Esmat",
-            role: "Proof reading, Content, Quote Curation",
+            role: "Lead Proof reading, Content, Quote Curation",
             avatar: "images/peoples/esraa.jpeg"
         },
         {

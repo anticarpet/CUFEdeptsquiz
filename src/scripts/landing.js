@@ -9,14 +9,18 @@ class WebsiteController {
                 subtitle: 'بشوية اسئلة هنساعدك تختار تخصصك الأنسب ليك',
                 btnText: 'يلا نبدأ',
                 footer: 'تم إنشاء وتصميم الموقع بواسطة فريق من كلية الهندسة جامعة القاهرة',
-                langSwitch: 'English'
+                langSwitch: 'English',
+                drive: "الدرابف",
+                catalog: "الكاتالوج"
             },
             en: {
                 title: 'Hey Future Engineer!',
                 subtitle: 'A few questions will help you choose the perfect department for your specialty',
                 btnText: 'Let\'s Start',
                 footer: 'This website was created and designed by a team from Cairo University Faculty of Engineering',
-                langSwitch: 'العربية'
+                langSwitch: 'العربية',
+                drive: "drive",
+                catalog: "catalogue"
             }
         };
 
@@ -67,6 +71,9 @@ class WebsiteController {
         document.getElementById('btnText').textContent = texts.btnText;
         document.getElementById('footerText').textContent = texts.footer;
         document.querySelector('.lang-text').textContent = texts.langSwitch;
+        document.getElementById('drivebtn').textContent = texts.drive;
+        document.getElementById('cataBtn').textContent = texts.catalog;
+        
 
         // Update arrow direction for button
         const arrow = document.querySelector('#startBtn .material-icons');
@@ -232,4 +239,6 @@ window.addEventListener('resize', () => {
         gsap.set('.transition-circle', { scale: 0, opacity: 0 });
     }, 150);
 });
+
+//pulse-animation
 
