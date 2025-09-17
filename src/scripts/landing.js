@@ -122,7 +122,7 @@ class WebsiteController {
                 // like: window.location.href = 'quiz.html';
                 window.location.href = 'quiz.html'
                 // lmaoooooooo
-                console.log('Navigate to quiz page');
+                //console.log('Navigate to quiz page');
 
                 // just reset the circle for demo (should be handled on page load)
                 setTimeout(() => {
@@ -143,6 +143,7 @@ class WebsiteController {
     initAnimations() {
         // Ensure button is visible first
         gsap.set('.btn-primary', { opacity: 1, visibility: 'visible', display: 'inline-flex' });
+        gsap.set('.btn-secondary', { opacity: 1, visibility: 'visible', display: 'inline-flex' });
 
         // Animate elements on load with more dramatic entrance
         gsap.timeline()
@@ -167,6 +168,12 @@ class WebsiteController {
                 ease: "power2.out"
             }, '-=0.8')
             .from('.btn-primary', {
+                scale: 0.7,
+                opacity: 0,
+                duration: 0.8,
+                ease: "back.out(1.7)"
+            }, '-=0.4')
+            .from('.btn-secondary', {
                 scale: 0.7,
                 opacity: 0,
                 duration: 0.8,
